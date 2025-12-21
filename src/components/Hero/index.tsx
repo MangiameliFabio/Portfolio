@@ -1,14 +1,88 @@
 import Link from "next/link";
+import TagButton from "../Blog/TagButton";
+import SingleBlog from "../Blog/SingleBlog";
 
 const Hero = () => {
   return (
     <>
       <section
         id="home"
-        className="relative z-10 overflow-hidden bg-white pb-16 pt-[120px] dark:bg-gray-dark md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
+        className="relative z-10 overflow-hidden bg-#121723 pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
       >
         <div className="container">
-          <div className="-mx-4 flex flex-wrap">
+          <div className="-mx-4 mb-60 flex flex-row items-center">
+            <div className="w-80">
+               <img src="/images/portfolio/fabio_profile_picture.jpg" className="rounded-full"></img>
+            </div>
+            <div className="mx-auto max-w-[800px] flex flex-col justify-items-center">
+              <h1 className="mb-1 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
+                  Fabio Mangiameli
+              </h1>
+              <h2 className="mb-4 text-xl italic leading-tight text-black dark:text-white sm:text-2xl sm:leading-tight md:text-3xl md:leading-tight">
+                  Engine Programmer
+              </h2>
+              <p className="mb-4 text-base leading-relaxed! text-black dark:text-white sm:text-lg md:text-xl">
+                My name is Fabio Mangiameli. I currently study Game Technology at the IT University of Copenhagen. I also work as a game programmer for Chasing Carrots. I love game development and have a passion for programming. Have a look at the game projects I did during my studies.
+              </p>
+              <h2 className="mb-2 text-base leading-relaxed! text-black dark:text-white sm:text-xl md:text-2xl">
+                  Proficient Programming Languages:
+              </h2>
+              <div className="mb-4">
+                <TagButton text={"C++"}/>
+                <TagButton text={"C#"}/>
+                <TagButton text={"GDScript"}/>
+                <TagButton text={"Blueprints"}/>
+                <TagButton text={"JavaScript"}/>
+                <TagButton text={"TypeScript"}/>
+              </div>
+              <h2 className="mb-2 text-base leading-relaxed! text-black dark:text-white sm:text-xl md:text-2xl">
+                  Tools I am experienced with:
+              </h2>
+              <div>
+                <TagButton text={"Unreal Engine"}/>
+                <TagButton text={"Godot"}/>
+                <TagButton text={"Unity"}/>
+                <TagButton text={"Git"}/>
+                <TagButton text={"Perforce"}/>
+              </div>
+            </div>
+          </div>
+          <h1 className="mb-10 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
+            Engine Programming related Projects
+          </h1>
+          <div className="mb-12">
+            <SingleBlog blog={{
+              id: 0,
+              title: "Custom Multiplayer Networking in Godot",
+              paragraph: "I collaborated with the indie studio Chasing Carrots to redesign multiplayer networking in the Godot game engine for a professional production environment. I replaced Godot’s built-in MultiplayerAPI with a custom networking layer that directly interfaces with MultiplayerPeer, improving flexibility, modularity, and authority handling. I also implemented full peer-to-peer network meshes using ENet and Epic Online Services, enabling low-latency client-to-client communication and support for features such as proximity voice chat. The system was integrated into the studio’s codebase, tested in gameplay sessions, and extended with a C++ fix to support multiple concurrent network meshes.",
+              image: "/images/portfolio/godot_test_scene.png",
+              tags: ["C++", "Godot", "GDScript"],
+              keyPoints: [
+                "Refactored Godot’s multiplayer networking layer to remove reliance on the built-in MultiplayerAPI",
+                "Designed and implemented the integration of the MultiplayerPeer into the custom Communication Line System in C++",
+                "Implemented full peer-to-peer network meshes for both ENet and Epic Online Services using GDScript",
+                "Integrated and validated the new networking architecture into the existing code base",
+                "Identified and resolved a critical multi-mesh limitation in the EOS Godot extension"
+              ]
+            }}></SingleBlog>
+          </div>
+          <div className="mb-12">
+            <SingleBlog blog={{
+              id: 0,
+              title: "Godot Multiplayer refactor",
+              paragraph: "I collaborated with the indie studio Chasing Carrots to redesign multiplayer networking in the Godot game engine for a professional production environment. I replaced Godot’s built-in MultiplayerAPI with a custom networking layer that directly interfaces with MultiplayerPeer, improving flexibility, modularity, and authority handling. I also implemented full peer-to-peer network meshes using ENet and Epic Online Services, enabling low-latency client-to-client communication and support for features such as proximity voice chat. The system was integrated into the studio’s codebase, tested in gameplay sessions, and extended with a C++ fix to support multiple concurrent network meshes.",
+              image: "/images/portfolio/godot_test_scene.png",
+              tags: ["C++", "Godot", "GDScript"],
+              keyPoints: [
+                "Refactored Godot’s multiplayer networking layer to remove reliance on the built-in MultiplayerAPI",
+                "Designed and implemented the integration of the MultiplayerPeer into the custom Communication Line System in C++",
+                "Implemented full peer-to-peer network meshes for both ENet and Epic Online Services using GDScript",
+                "Integrated and validated the new networking architecture into the existing code base",
+                "Identified and resolved a critical multi-mesh limitation in the EOS Godot extension"
+              ]
+            }}></SingleBlog>
+          </div>
+          {/* <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
               <div className="mx-auto max-w-[800px] text-center">
                 <h1 className="mb-5 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
@@ -36,7 +110,7 @@ const Hero = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="absolute right-0 top-0 z-[-1] opacity-30 lg:opacity-100">
           <svg

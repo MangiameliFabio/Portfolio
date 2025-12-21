@@ -3,11 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 
 const SingleBlog = ({ blog }: { blog: Blog }) => {
-  const { title, image, paragraph, author, tags, publishDate } = blog;
+  const { title, image, paragraph, tags, keyPoints } = blog;
   return (
     <>
-      <div className="group shadow-one hover:shadow-two dark:bg-dark dark:hover:shadow-gray-dark relative overflow-hidden rounded-xs bg-white duration-300">
-        <Link
+      <div className="group shadow-one hover:shadow-two relative overflow-hidden rounded-xs bg-dark duration-300">
+        {/* <Link
           href="/blog-details"
           className="relative block aspect-37/22 w-full"
         >
@@ -15,41 +15,77 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
             {tags[0]}
           </span>
           <Image src={image} alt="image" fill />
-        </Link>
-        <div className="p-6 sm:p-8 md:px-6 md:py-8 lg:p-8 xl:px-5 xl:py-8 2xl:p-8">
-          <h3>
-            <Link
-              href="/blog-details"
-              className="hover:text-primary dark:hover:text-primary mb-4 block text-xl font-bold text-black sm:text-2xl dark:text-white"
-            >
-              {title}
-            </Link>
-          </h3>
-          <p className="border-body-color/10 text-body-color mb-6 border-b pb-6 text-base font-medium dark:border-white/10">
-            {paragraph}
-          </p>
-          <div className="flex items-center">
-            <div className="border-body-color/10 mr-5 flex items-center border-r pr-5 xl:mr-3 xl:pr-3 2xl:mr-5 2xl:pr-5 dark:border-white/10">
-              <div className="mr-4">
-                <div className="relative h-10 w-10 overflow-hidden rounded-full">
-                  <Image src={author.image} alt="author" fill />
-                </div>
+        </Link> */}
+        <div className="m-6 flex justify-items-center border-b border-body-color/20">
+          <div className="mr-6">
+            <h3 className="mb-6 border-b border-body-color/20">
+              {/* <Link
+                href="/blog-details"
+                className="hover:text-primary dark:hover:text-primary mb-4 block text-xl font-bold text-black sm:text-2xl dark:text-white"
+              >
+                {title}
+              </Link> */}
+              <div className="hover:text-primary mb-4 block text-xl font-bold text-black sm:text-2xl text-white">
+                {title}
               </div>
-              <div className="w-full">
-                <h4 className="text-dark mb-1 text-sm font-medium dark:text-white">
-                  By {author.name}
-                </h4>
-                <p className="text-body-color text-xs">{author.designation}</p>
-              </div>
+            </h3>
+            <div className="z-20 mb-6 flex flex-wrap gap-2">
+              {tags.map((tag, index) => (
+                <span
+                  key={index}
+                  className="bg-primary inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-semibold text-white capitalize"
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
-            <div className="inline-block">
-              <h4 className="text-dark mb-1 text-sm font-medium dark:text-white">
-                Date
-              </h4>
-              <p className="text-body-color text-xs">{publishDate}</p>
-            </div>
+            <ul className="text-body-color list-disc space-y-2 pl-5 text-white mb-6">
+              {keyPoints.map((keyPoint, index) => (
+                <li key={index} className="font-medium">
+                  {keyPoint}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="ml-auto max-w-xl mb-auto ">
+            <Image
+              src={image}
+              alt="image"
+              height={400}
+              width={800} // any reasonable intrinsic width
+              className="h-full w-auto object-contain"
+            />
           </div>
         </div>
+        <div className="mb-6">
+          <p className="mx-6 pb-6 text-body-color text-white border-b border-body-color/20">{paragraph}</p>
+        </div>
+        <div className=" mx-6 mb-6 flex items-center">
+            <div className="border-body-color/20 inline-block px-5 flex items-center border-r">
+              <p className="text-body-color text-xs">Organization</p>
+              <h4 className="text-dark mb-1 text-sm font-medium dark:text-white">
+                Chasing Carrots
+              </h4>
+            </div>
+            <div className="border-body-color/20 inline-block px-5 flex items-center border-r">
+              <p className="text-body-color text-xs">Game</p>
+              <h4 className="text-dark mb-1 text-sm font-medium dark:text-white">
+                Unanounced Titel
+              </h4>
+            </div>
+            <div className="border-body-color/20 inline-block px-5 flex items-center border-r">
+              <p className="text-body-color text-xs">Date</p>
+              <h4 className="text-dark mb-1 text-sm font-medium dark:text-white">
+                2025
+              </h4>
+            </div>
+            <div className="border-body-color/20 inline-block px-5 flex items-center border-r">
+              <p className="text-body-color text-xs">Duration</p>
+              <h4 className="text-dark mb-1 text-sm font-medium dark:text-white">
+                4 Month
+              </h4>
+            </div>
+          </div>
       </div>
     </>
   );
