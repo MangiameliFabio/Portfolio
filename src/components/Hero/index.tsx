@@ -11,10 +11,10 @@ const Hero = () => {
       >
         <div className="container">
           <div className="-mx-4 mb-60 flex flex-row items-center">
-            <div className="w-80">
+            <div className="w-80 hidden xl:block">
                <img src="/images/portfolio/fabio_profile_picture.jpg" className="rounded-full"></img>
             </div>
-            <div className="mx-auto max-w-[800px] flex flex-col justify-items-center">
+            <div className="mx-auto max-w-[900px] flex flex-col justify-items-center ml-12">
               <h1 className="mb-1 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
                   Fabio Mangiameli
               </h1>

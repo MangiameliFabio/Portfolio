@@ -6,7 +6,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
   const { title, image, paragraph, tags, keyPoints } = blog;
   return (
     <>
-      <div className="group shadow-one hover:shadow-two relative overflow-hidden rounded-xs bg-dark duration-300">
+      <div className="group shadow-one hover:shadow-two bg-dark relative overflow-hidden rounded-xs duration-300">
         {/* <Link
           href="/blog-details"
           className="relative block aspect-37/22 w-full"
@@ -16,19 +16,19 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
           </span>
           <Image src={image} alt="image" fill />
         </Link> */}
-        <div className="m-6 flex justify-items-center border-b border-body-color/20">
-          <div className="mr-6">
-            <h3 className="mb-6 border-b border-body-color/20">
-              {/* <Link
+        <h3 className="border-body-color/20 m-6 border-b">
+          {/* <Link
                 href="/blog-details"
                 className="hover:text-primary dark:hover:text-primary mb-4 block text-xl font-bold text-black sm:text-2xl dark:text-white"
               >
                 {title}
               </Link> */}
-              <div className="hover:text-primary mb-4 block text-xl font-bold text-black sm:text-2xl text-white">
-                {title}
-              </div>
-            </h3>
+          <div className="hover:text-primary mb-4 block text-xl font-bold text-black text-white sm:text-2xl">
+            {title}
+          </div>
+        </h3>
+        <div className="border-body-color/20 m-6 flex justify-items-center border-b">
+          <div className="mr-9">
             <div className="z-20 mb-6 flex flex-wrap gap-2">
               {tags.map((tag, index) => (
                 <span
@@ -39,15 +39,15 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
                 </span>
               ))}
             </div>
-            <ul className="text-body-color list-disc space-y-2 pl-5 text-white mb-6">
+            <ul className="text-body-color mb-6 list-disc space-y-2 pl-5 text-white">
               {keyPoints.map((keyPoint, index) => (
-                <li key={index} className="font-medium">
+                <li key={index} className="font-medium text-justify">
                   {keyPoint}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="ml-auto max-w-xl mb-auto ">
+          <div className="mb-6 ml-auto max-w-[50%]">
             <Image
               src={image}
               alt="image"
@@ -58,34 +58,34 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
           </div>
         </div>
         <div className="mb-6">
-          <p className="mx-6 pb-6 text-body-color text-white border-b border-body-color/20">{paragraph}</p>
+          <p className="text-body-color border-body-color/20 mx-6 border-b pb-6 text-white text-justify">
+            {paragraph}
+          </p>
         </div>
-        <div className=" mx-6 mb-6 flex items-center">
-            <div className="border-body-color/20 inline-block px-5 flex items-center border-r">
-              <p className="text-body-color text-xs">Organization</p>
-              <h4 className="text-dark mb-1 text-sm font-medium dark:text-white">
-                Chasing Carrots
-              </h4>
-            </div>
-            <div className="border-body-color/20 inline-block px-5 flex items-center border-r">
-              <p className="text-body-color text-xs">Game</p>
-              <h4 className="text-dark mb-1 text-sm font-medium dark:text-white">
-                Unanounced Titel
-              </h4>
-            </div>
-            <div className="border-body-color/20 inline-block px-5 flex items-center border-r">
-              <p className="text-body-color text-xs">Date</p>
-              <h4 className="text-dark mb-1 text-sm font-medium dark:text-white">
-                2025
-              </h4>
-            </div>
-            <div className="border-body-color/20 inline-block px-5 flex items-center border-r">
-              <p className="text-body-color text-xs">Duration</p>
-              <h4 className="text-dark mb-1 text-sm font-medium dark:text-white">
-                4 Month
-              </h4>
-            </div>
+        <div className="mx-6 mb-6 flex items-center">
+          <div className="border-body-color/20 flex inline-block items-center border-r px-5">
+            <p className="text-body-color text-sm">Organization</p>
+            <h4 className="text-dark mb-1 font-medium dark:text-white">
+              Chasing Carrots
+            </h4>
           </div>
+          <div className="border-body-color/20 flex inline-block items-center border-r px-5">
+            <p className="text-body-color text-sm">Game</p>
+            <h4 className="text-dark mb-1 font-medium dark:text-white">
+              Unanounced Titel
+            </h4>
+          </div>
+          <div className="border-body-color/20 flex inline-block items-center border-r px-5">
+            <p className="text-body-color text-sm">Date</p>
+            <h4 className="text-dark mb-1 font-medium dark:text-white">2025</h4>
+          </div>
+          <div className="border-body-color/20 flex inline-block items-center border-r px-5">
+            <p className="text-body-color text-sm">Duration</p>
+            <h4 className="text-dark mb-1 font-medium dark:text-white">
+              4 Month
+            </h4>
+          </div>
+        </div>
       </div>
     </>
   );
