@@ -12,4 +12,8 @@ export type Blog = {
   tags: string[];
   keyPoints: string[];
   link: string;
+  orga: string;
+  game: string;
+  date: string;
+  duration: string;
 };

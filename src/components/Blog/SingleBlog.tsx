@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const SingleBlog = ({ blog }: { blog: Blog }) => {
-  const { title, src, paragraph, tags, keyPoints, link } = blog;
+  const { title, src, paragraph, tags, keyPoints, link, orga, game, date, duration } = blog;
   return (
     <>
       <div className="group shadow-one hover:shadow-two bg-dark relative overflow-hidden rounded-xs duration-300">
@@ -42,8 +42,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
               loop
               muted
               playsInline
-              height={400}
-              className="w-auto rounded-md object-contain mx-5"
+              className="w-full h-auto max-w-full rounded-md object-contain"
             />
           </div>
         </div>
@@ -56,32 +55,34 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
           <div className="border-body-color/20 flex inline-block items-center border-r px-5">
             <p className="text-body-color text-sm">Organization</p>
             <h4 className="text-dark mb-1 font-medium dark:text-white">
-              Chasing Carrots
+              {orga}
             </h4>
           </div>
           <div className="border-body-color/20 flex inline-block items-center border-r px-5">
             <p className="text-body-color text-sm">Game</p>
             <h4 className="text-dark mb-1 font-medium dark:text-white">
-              Unanounced Titel
+              {game}
             </h4>
           </div>
           <div className="border-body-color/20 flex inline-block items-center border-r px-5">
             <p className="text-body-color text-sm">Date</p>
-            <h4 className="text-dark mb-1 font-medium dark:text-white">2025</h4>
+            <h4 className="text-dark mb-1 font-medium dark:text-white">{date}</h4>
           </div>
           <div className="border-body-color/20 flex inline-block items-center border-r px-5">
             <p className="text-body-color text-sm">Duration</p>
             <h4 className="text-dark mb-1 font-medium dark:text-white">
-              4 Month
+              {duration}
             </h4>
           </div>
-          <button className="shadow-submit dark:shadow-submit-dark bg-primary hover:bg-primary/90 flex items-center justify-center rounded-xs px-9 py-4 text-base font-medium text-white duration-300 ml-auto">
-            <Link
+          <Link
             href={link}
+            className="ml-auto cursor-pointer"
           >
-            Go to Project
+            <button className="shadow-submit dark:shadow-submit-dark bg-primary hover:bg-primary/90 flex items-center justify-center rounded-xs px-9 py-4 text-base font-medium text-white duration-300 cursor-pointer">
+              
+              Go to Project
+            </button>
           </Link>
-          </button>
         </div>
       </div>
     </>

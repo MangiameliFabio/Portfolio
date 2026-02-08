@@ -44,6 +44,9 @@ const Hero = () => {
                 <TagButton text={"Unity"}/>
                 <TagButton text={"Git"}/>
                 <TagButton text={"Perforce"}/>
+                <TagButton text={"Tracy"}/>
+                <TagButton text={"Codecks"}/>
+                <TagButton text={"Jira"}/>
               </div>
             </div>
           </div>
@@ -54,34 +57,42 @@ const Hero = () => {
             <SingleBlog blog={{
               id: 0,
               title: "Custom Multiplayer Networking in Godot",
-              paragraph: "I collaborated with the indie studio Chasing Carrots to redesign multiplayer networking in the Godot game engine for a professional production environment. I replaced Godot’s built-in MultiplayerAPI with a custom networking layer that directly interfaces with MultiplayerPeer, improving flexibility, modularity, and authority handling. I also implemented full peer-to-peer network meshes using ENet and Epic Online Services, enabling low-latency client-to-client communication and support for features such as proximity voice chat. The system was integrated into the studio’s codebase, tested in gameplay sessions, and extended with a C++ fix to support multiple concurrent network meshes.",
+              paragraph: "I replaced Godot’s built-in MultiplayerAPI with a custom networking layer that directly interfaces with MultiplayerPeer, improving flexibility, modularity, and authority handling. I also implemented full peer-to-peer network meshes using ENet and Epic Online Services, enabling low-latency client-to-client communication and support for features such as proximity voice chat. The system was integrated into the studio’s codebase, tested in gameplay sessions, and extended with a C++ fix to support multiple concurrent network meshes.",
               src: "/images/projects/godot-networking/AppendixA_ENetShowcase.mp4",
               tags: ["C++", "Godot", "GDScript"],
               keyPoints: [
                 "Refactored Godot’s multiplayer networking layer to remove reliance on the built-in MultiplayerAPI",
                 "Designed and implemented the integration of the MultiplayerPeer into the custom Communication Line System in C++",
-                "Implemented full peer-to-peer network meshes for both ENet and Epic Online Services using GDScript",
+                "Implemented peer-to-peer network meshes for both ENet and Epic Online Services using GDScript",
                 "Integrated and validated the new networking architecture into the existing code base",
                 "Identified and resolved a critical multi-mesh limitation in the EOS Godot extension"
               ],
-              link: "/projects/godot-networking"
+              link: "/projects/godot-networking",
+              orga: "Chasing Carrots",
+              game: "Unanounced Titel",
+              date: "2025",
+              duration: "4 Months",
             }}></SingleBlog>
           </div>
           <div className="mb-12">
             <SingleBlog blog={{
               id: 0,
-              title: "Godot Multiplayer refactor",
-              paragraph: "I collaborated with the indie studio Chasing Carrots to redesign multiplayer networking in the Godot game engine for a professional production environment. I replaced Godot’s built-in MultiplayerAPI with a custom networking layer that directly interfaces with MultiplayerPeer, improving flexibility, modularity, and authority handling. I also implemented full peer-to-peer network meshes using ENet and Epic Online Services, enabling low-latency client-to-client communication and support for features such as proximity voice chat. The system was integrated into the studio’s codebase, tested in gameplay sessions, and extended with a C++ fix to support multiple concurrent network meshes.",
-              src: "/images/projects/godot-networking/AppendixA_ENetShowcase.mp4",
-              tags: ["C++", "Godot", "GDScript"],
+              title: "Performance optimizations for Halls of Torment",
+              paragraph: "Back in 2024, this was the first task I received after joining Chasing Carrots as a Game Programmer. Halls of Torment was still in early access and suffered from performance issues toward the end of a run. As a survivor-like game, it features a large number of entities and projectiles on screen during the final minutes, which heavily impacted performance. With the upcoming console release in mind, I was tasked with investigating these issues and migrating the project from the Optick profiler to Tracy.",
+              src: "/images/projects/halls-of-torment/hot-ice-effect.mp4",
+              tags: ["C++", "Godot", "GDScript", "Tracy"],
               keyPoints: [
-                "Refactored Godot’s multiplayer networking layer to remove reliance on the built-in MultiplayerAPI",
-                "Designed and implemented the integration of the MultiplayerPeer into the custom Communication Line System in C++",
-                "Implemented full peer-to-peer network meshes for both ENet and Epic Online Services using GDScript",
-                "Integrated and validated the new networking architecture into the existing code base",
-                "Identified and resolved a critical multi-mesh limitation in the EOS Godot extension"
+                "Integrated the Tracy profiler into the custom C++ Godot engine build to enable deep runtime performance analysis",
+                "Profiled heavy in-game scenarios with thousands of active entities to identify real bottlenecks",
+                "Implemented object pooling and spawning in seperate thread to reduce allocation overhead",
+                "Introduced time slicing for the frost status effect, improving frame stability under load",
+                "Added game object global position caching in C++ and exposed it to GDScript for gameplay systems"
               ],
-              link: "/projects/godot-networking"
+              link: "/projects/halls-of-torment",
+              orga: "Chasing Carrots",
+              game: "Halls of Torment",
+              date: "2024",
+              duration: "2 Months",
             }}></SingleBlog>
           </div>
           {/* <div className="-mx-4 flex flex-wrap">
