@@ -55,7 +55,7 @@ const Hero = () => {
               id: 0,
               title: "Custom Multiplayer Networking in Godot",
               paragraph: "I collaborated with the indie studio Chasing Carrots to redesign multiplayer networking in the Godot game engine for a professional production environment. I replaced Godot’s built-in MultiplayerAPI with a custom networking layer that directly interfaces with MultiplayerPeer, improving flexibility, modularity, and authority handling. I also implemented full peer-to-peer network meshes using ENet and Epic Online Services, enabling low-latency client-to-client communication and support for features such as proximity voice chat. The system was integrated into the studio’s codebase, tested in gameplay sessions, and extended with a C++ fix to support multiple concurrent network meshes.",
-              image: "/images/portfolio/godot_test_scene.png",
+              src: "/images/projects/godot-networking/AppendixA_ENetShowcase.mp4",
               tags: ["C++", "Godot", "GDScript"],
               keyPoints: [
                 "Refactored Godot’s multiplayer networking layer to remove reliance on the built-in MultiplayerAPI",
@@ -63,7 +63,8 @@ const Hero = () => {
                 "Implemented full peer-to-peer network meshes for both ENet and Epic Online Services using GDScript",
                 "Integrated and validated the new networking architecture into the existing code base",
                 "Identified and resolved a critical multi-mesh limitation in the EOS Godot extension"
-              ]
+              ],
+              link: "/projects/godot-networking"
             }}></SingleBlog>
           </div>
           <div className="mb-12">
@@ -71,7 +72,7 @@ const Hero = () => {
               id: 0,
               title: "Godot Multiplayer refactor",
               paragraph: "I collaborated with the indie studio Chasing Carrots to redesign multiplayer networking in the Godot game engine for a professional production environment. I replaced Godot’s built-in MultiplayerAPI with a custom networking layer that directly interfaces with MultiplayerPeer, improving flexibility, modularity, and authority handling. I also implemented full peer-to-peer network meshes using ENet and Epic Online Services, enabling low-latency client-to-client communication and support for features such as proximity voice chat. The system was integrated into the studio’s codebase, tested in gameplay sessions, and extended with a C++ fix to support multiple concurrent network meshes.",
-              image: "/images/portfolio/godot_test_scene.png",
+              src: "/images/projects/godot-networking/AppendixA_ENetShowcase.mp4",
               tags: ["C++", "Godot", "GDScript"],
               keyPoints: [
                 "Refactored Godot’s multiplayer networking layer to remove reliance on the built-in MultiplayerAPI",
@@ -79,7 +80,8 @@ const Hero = () => {
                 "Implemented full peer-to-peer network meshes for both ENet and Epic Online Services using GDScript",
                 "Integrated and validated the new networking architecture into the existing code base",
                 "Identified and resolved a critical multi-mesh limitation in the EOS Godot extension"
-              ]
+              ],
+              link: "/projects/godot-networking"
             }}></SingleBlog>
           </div>
           {/* <div className="-mx-4 flex flex-wrap">

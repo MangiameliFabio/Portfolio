@@ -78,6 +78,12 @@ const menuData: Menu[] = [
         path: "/error",
         newTab: false,
       },
+      {
+        id: 48,
+        title: "Custom Multiplayer Networking in Godot",
+        path: "/godot-networking",
+        newTab: false,
+      },
     ],
   },
 ];

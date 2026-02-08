@@ -3,29 +3,17 @@ import Image from "next/image";
 import Link from "next/link";
 
 const SingleBlog = ({ blog }: { blog: Blog }) => {
-  const { title, image, paragraph, tags, keyPoints } = blog;
+  const { title, src, paragraph, tags, keyPoints, link } = blog;
   return (
     <>
       <div className="group shadow-one hover:shadow-two bg-dark relative overflow-hidden rounded-xs duration-300">
-        {/* <Link
-          href="/blog-details"
-          className="relative block aspect-37/22 w-full"
-        >
-          <span className="bg-primary absolute top-6 right-6 z-20 inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-semibold text-white capitalize">
-            {tags[0]}
-          </span>
-          <Image src={image} alt="image" fill />
-        </Link> */}
         <h3 className="border-body-color/20 m-6 border-b">
-          {/* <Link
-                href="/blog-details"
-                className="hover:text-primary dark:hover:text-primary mb-4 block text-xl font-bold text-black sm:text-2xl dark:text-white"
-              >
-                {title}
-              </Link> */}
-          <div className="hover:text-primary mb-4 block text-xl font-bold text-black text-white sm:text-2xl">
+          <Link
+            href={link}
+            className="hover:text-primary mb-4 block text-xl font-bold text-black text-white sm:text-2xl"
+          >
             {title}
-          </div>
+          </Link>
         </h3>
         <div className="border-body-color/20 m-6 flex justify-items-center border-b">
           <div className="mr-9">
@@ -48,12 +36,14 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
             </ul>
           </div>
           <div className="mb-6 ml-auto max-w-[50%]">
-            <Image
-              src={image}
-              alt="image"
+            <video
+              src={src}
+              autoPlay
+              loop
+              muted
+              playsInline
               height={400}
-              width={800} // any reasonable intrinsic width
-              className="h-full w-auto object-contain"
+              className="w-auto rounded-md object-contain mx-5"
             />
           </div>
         </div>
@@ -85,6 +75,13 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
               4 Month
             </h4>
           </div>
+          <button className="shadow-submit dark:shadow-submit-dark bg-primary hover:bg-primary/90 flex items-center justify-center rounded-xs px-9 py-4 text-base font-medium text-white duration-300 ml-auto">
+            <Link
+            href={link}
+          >
+            Go to Project
+          </Link>
+          </button>
         </div>
       </div>
     </>

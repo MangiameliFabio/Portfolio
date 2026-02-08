@@ -8,7 +8,8 @@ export type Blog = {
   id: number;
   title: string;
   paragraph: string;
-  image: string;
+  src: string;
   tags: string[];
-  keyPoints: string[]
+  keyPoints: string[];
+  link: string;
 };
