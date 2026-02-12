@@ -1,41 +1,46 @@
 import { Blog } from "@/types/blog";
 import Image from "next/image";
 import Link from "next/link";
+import TagButton from "./TagButton";
 
 const SingleBlog = ({ blog }: { blog: Blog }) => {
   const { title, src, paragraph, tags, keyPoints, link, orga, game, date, duration } = blog;
   return (
     <>
-      <div className="group shadow-one hover:shadow-two bg-dark relative overflow-hidden rounded-xs duration-300">
-        <h3 className="border-body-color/20 m-6 border-b">
+      <div className="group shadow-one hover:shadow-two bg-dark relative overflow-hidden rounded-xs duration-300 px-4 md:px-6">
+        <h3 className="border-body-color/20 border-b py-3 md:py-6 hover:text-primary text-xl font-bold leading-tight text-black dark:text-white sm:text-2xl sm:leading-tight md:text-3xl md:leading-tight">
           <Link
             href={link}
-            className="hover:text-primary mb-4 block text-xl font-bold text-black text-white sm:text-2xl"
           >
             {title}
           </Link>
         </h3>
-        <div className="border-body-color/20 m-6 flex justify-items-center border-b">
-          <div className="mr-9">
-            <div className="z-20 mb-6 flex flex-wrap gap-2">
+        <div className="border-body-color/20 flex justify-items-center border-b pb-4 md:pb-6">
+          <div className="2xl:mr-9">
+            <div className="z-20 pt-3 md:pt-6 flex flex-wrap">
               {tags.map((tag, index) => (
-                <span
-                  key={index}
-                  className="bg-primary inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-semibold text-white capitalize"
-                >
-                  {tag}
-                </span>
+                <TagButton text={tag}/>
               ))}
             </div>
-            <ul className="text-body-color mb-6 list-disc space-y-2 pl-5 text-white">
+            <ul className="mt-1 pl-6 text-base leading-relaxed! text-black dark:text-white sm:text-lg md:text-xl list-disc list-outside space-y-2">
               {keyPoints.map((keyPoint, index) => (
-                <li key={index} className="font-medium text-justify">
+                <li key={index}>
                   {keyPoint}
                 </li>
               ))}
             </ul>
+            <div className="flex 2xl:hidden items-center justify-center mt-5">
+              <video
+                src={src}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-auto max-w-full rounded-md object-contain"
+              />
+            </div>
           </div>
-          <div className="mb-6 ml-auto max-w-[50%]">
+          <div className="ml-auto max-w-[50%] hidden 2xl:flex items-center justify-center">
             <video
               src={src}
               autoPlay
@@ -46,31 +51,33 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
             />
           </div>
         </div>
-        <div className="mb-6">
-          <p className="text-body-color border-body-color/20 mx-6 border-b pb-6 text-white text-justify">
+        <div className="pt-3 md:pt-6 pb-3 md:pb-4 lg:pb-6">
+          <p className="text-base leading-relaxed! text-black dark:text-white sm:text-lg md:text-xl">
             {paragraph}
           </p>
         </div>
-        <div className="mx-6 mb-6 flex items-center">
-          <div className="border-body-color/20 flex inline-block items-center border-r px-5">
-            <p className="text-body-color text-sm">Organization</p>
-            <h4 className="text-dark mb-1 font-medium dark:text-white">
+        <div className="mb-6 lg:flex items-center">
+          <div className="border-body-color/20 items-center lg:border-r lg:pr-5 pb-3 lg:pb-0">
+            <p className="text-xs text-body-color md:text-sm">Organization</p>
+            <h4 className="text-sm text-black dark:text-white sm:text-md md:text-base">
               {orga}
             </h4>
           </div>
-          <div className="border-body-color/20 flex inline-block items-center border-r px-5">
-            <p className="text-body-color text-sm">Game</p>
-            <h4 className="text-dark mb-1 font-medium dark:text-white">
+          <div className="border-body-color/20 items-center lg:border-r lg:px-5 pb-3 lg:pb-0">
+            <p className="text-xs text-body-color md:text-sm">Game</p>
+            <h4 className="text-sm text-black dark:text-white sm:text-md md:text-base">
               {game}
             </h4>
           </div>
-          <div className="border-body-color/20 flex inline-block items-center border-r px-5">
-            <p className="text-body-color text-sm">Date</p>
-            <h4 className="text-dark mb-1 font-medium dark:text-white">{date}</h4>
+          <div className="border-body-color/20 items-center lg:border-r lg:px-5 pb-3 lg:pb-0">
+            <p className="text-xs text-body-color md:text-sm">Date</p>
+            <h4 className="text-sm text-black dark:text-white sm:text-md md:text-base">
+              {date}
+            </h4>
           </div>
-          <div className="border-body-color/20 flex inline-block items-center border-r px-5">
-            <p className="text-body-color text-sm">Duration</p>
-            <h4 className="text-dark mb-1 font-medium dark:text-white">
+          <div className="border-body-color/20 items-center lg:px-5 pb-4 lg:pb-0">
+            <p className="text-xs text-body-color md:text-sm">Duration</p>
+            <h4 className="text-sm text-black dark:text-white sm:text-md md:text-base">
               {duration}
             </h4>
           </div>
@@ -78,7 +85,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
             href={link}
             className="ml-auto cursor-pointer"
           >
-            <button className="shadow-submit dark:shadow-submit-dark bg-primary hover:bg-primary/90 flex items-center justify-center rounded-xs px-9 py-4 text-base font-medium text-white duration-300 cursor-pointer">
+            <button className="shadow-submit dark:shadow-submit-dark bg-primary hover:bg-primary/90 rounded-xs px-9 py-4 text-base leading-relaxed! text-black dark:text-white sm:text-lg md:text-xl duration-300 cursor-pointer w-full mg:w-auto">
               
               Go to Project
             </button>

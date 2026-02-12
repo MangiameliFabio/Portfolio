@@ -127,7 +127,7 @@ const BlogPage = () => {
 
               <p className="text-slate-400 mb-10 text-lg leading-relaxed">Once that was done, I migrated a full test project. Every RPC call was replaced with CommunicationLine calls. All MultiplayerSpawner and MultiplayerSynchronizer usage was removed. The test scene synchronized dozens of data types at regular intervals and displayed them in a debugging window. If anything desynced, it would show immediately. After the refactor, the scene behaved identically to the old implementation. That was the first big milestone.</p>
               
-              <VideoBlock src={"/images/projects/godot-networking/AppendixA_ENetShowcase.mp4"} caption="Showcase: Test project to check networking capabilities"/>
+              <VideoBlock src={"/images/projects/godot-networking/GodotNetworkingShowCase.mp4"} caption="Showcase: Test project to check networking capabilities"/>
 
               <SectionTitle>Building a peer to peer mesh</SectionTitle>
 
