@@ -12,8 +12,17 @@ export type Blog = {
   tags: string[];
   keyPoints: string[];
   link: string;
-  orga: string;
+  orgaType: String;
+  orgaName: String;
   game: string;
   date: string;
   duration: string;
 };
+
+export type Stat = {
+  orgaType: String;
+  orgaName: String;
+  game: String;
+  date: String;
+  duration: String;
+} 

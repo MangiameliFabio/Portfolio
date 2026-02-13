@@ -2,9 +2,10 @@ import { Blog } from "@/types/blog";
 import Image from "next/image";
 import Link from "next/link";
 import TagButton from "./TagButton";
+import Statistics from "./Statistics";
 
 const SingleBlog = ({ blog }: { blog: Blog }) => {
-  const { title, src, paragraph, tags, keyPoints, link, orga, game, date, duration } = blog;
+  const { title, src, paragraph, tags, keyPoints, link, orgaType, orgaName, game, date, duration } = blog;
   return (
     <>
       <div className="group shadow-one hover:shadow-two bg-dark relative overflow-hidden rounded-xs duration-300 px-4 md:px-6">
@@ -19,7 +20,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
           <div className="2xl:mr-9">
             <div className="z-20 pt-3 md:pt-6 flex flex-wrap">
               {tags.map((tag, index) => (
-                <TagButton text={tag}/>
+                <TagButton key={index} text={tag}/>
               ))}
             </div>
             <ul className="mt-1 pl-6 text-base leading-relaxed! text-black dark:text-white sm:text-lg md:text-xl list-disc list-outside space-y-2">
@@ -56,36 +57,21 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
             {paragraph}
           </p>
         </div>
-        <div className="mb-6 lg:flex items-center">
-          <div className="border-body-color/20 items-center lg:border-r lg:pr-5 pb-3 lg:pb-0">
-            <p className="text-xs text-body-color md:text-sm">Organization</p>
-            <h4 className="text-sm text-black dark:text-white sm:text-md md:text-base">
-              {orga}
-            </h4>
-          </div>
-          <div className="border-body-color/20 items-center lg:border-r lg:px-5 pb-3 lg:pb-0">
-            <p className="text-xs text-body-color md:text-sm">Game</p>
-            <h4 className="text-sm text-black dark:text-white sm:text-md md:text-base">
-              {game}
-            </h4>
-          </div>
-          <div className="border-body-color/20 items-center lg:border-r lg:px-5 pb-3 lg:pb-0">
-            <p className="text-xs text-body-color md:text-sm">Date</p>
-            <h4 className="text-sm text-black dark:text-white sm:text-md md:text-base">
-              {date}
-            </h4>
-          </div>
-          <div className="border-body-color/20 items-center lg:px-5 pb-4 lg:pb-0">
-            <p className="text-xs text-body-color md:text-sm">Duration</p>
-            <h4 className="text-sm text-black dark:text-white sm:text-md md:text-base">
-              {duration}
-            </h4>
-          </div>
+        <div className="lg:flex">
+          <Statistics 
+                    stat={{
+                      orgaType: orgaType,
+                      orgaName: orgaName,
+                      game: game,
+                      date: date,
+                      duration: duration
+                    }}/>
+        
           <Link
             href={link}
             className="ml-auto cursor-pointer"
           >
-            <button className="shadow-submit dark:shadow-submit-dark bg-primary hover:bg-primary/90 rounded-xs px-9 py-4 text-base leading-relaxed! text-black dark:text-white sm:text-lg md:text-xl duration-300 cursor-pointer w-full mg:w-auto">
+            <button className=" mb-4 lg:mb-6 shadow-submit dark:shadow-submit-dark bg-primary hover:bg-primary/90 rounded-xs px-9 py-4 text-base leading-relaxed! text-black dark:text-white sm:text-lg md:text-xl duration-300 cursor-pointer w-full mg:w-auto">
               
               Go to Project
             </button>

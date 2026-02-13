@@ -7,7 +7,7 @@ const Hero = () => {
     <>
       <section
         id="home"
-        className="relative z-10 overflow-hidden bg-#121723 pb-16 pt-[100px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[150px]"
+        className="relative z-10 overflow-hidden bg-#121723 pb-16 pt-[50px] md:pb-[100px] lg:pt-[80px]"
       >
         <div className="container">
           <div className="mb-10 md:mb-20 flex flex-row items-center">
@@ -66,7 +66,8 @@ const Hero = () => {
                 "Focused on game systems such as the room temperature system, electricity system and cruiser engine system",
               ],
               link: "/projects/coop-exploration",
-              orga: "Chasing Carrots",
+              orgaType: "Company",
+              orgaName: "Chasing Carrots",
               game: "Unanounced Titel",
               date: "2024-2026",
               duration: "1.5 years",
@@ -87,7 +88,8 @@ const Hero = () => {
                 "Identified and resolved a critical multi-mesh limitation in the EOS Godot extension"
               ],
               link: "/projects/godot-networking",
-              orga: "Chasing Carrots",
+              orgaType: "Company",
+              orgaName: "Chasing Carrots",
               game: "Unanounced Titel",
               date: "2025",
               duration: "4 Months",
@@ -108,7 +110,8 @@ const Hero = () => {
                 "Added game object global position caching in C++ and exposed it to GDScript for gameplay systems"
               ],
               link: "/projects/halls-of-torment",
-              orga: "Chasing Carrots",
+              orgaType: "Company",
+              orgaName: "Chasing Carrots",
               game: "Halls of Torment",
               date: "2024",
               duration: "2 Months",
