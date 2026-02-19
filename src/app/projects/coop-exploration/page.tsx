@@ -9,6 +9,11 @@ import TagButton from "@/components/Blog/TagButton";
 import Paragraph from "@/components/Blog/Paragraph";
 import BlogLink from "@/components/Blog/BlogLink";
 import BulletList from "@/components/Blog/BulletList";
+import CodeBlock from "@/components/Blog/CodeBlock";
+import { coroutineSnippet, behaviourSnippet, searchSnippet } from "@/code/gdScriptSnippets";
+import SubsectionTitel from "@/components/Blog/SubsectionTitel";
+import TableOfContents from "@/components/Blog/TableOfContents";
+
 
 export const metadata: Metadata = {
   title: "Custom Multiplayer Networking in Godot",
@@ -40,156 +45,144 @@ const BlogPage = () => {
                   orgaName: "Chasing Carrots",
                   game: "Unanounced Titel",
                   date: "2025",
-                  duration: "4 Month"
+                  duration: "1.5 years"
                 }}/>
               </div>
 
               <Paragraph>
-                I spent four months deep inside multiplayer networking in Godot while working with Chasing Carrots on their upcoming co-op project. The goal was simple.
-                Can we replace Godot’s built-in multiplayer layer with a custom system that gives us more control, more flexibility, and better support for peer to peer features?
-                This post is about what we needed, how I implemented it, and how it went. For most parts the code was written in C++, as I worked inside the Godot Engine source code and the Epic Online Services Godot extension. I learned a lot about debugging foreign code and how to navigate in large code bases.
+                The longest time during my work at Chasing Carrots I was assigned to an unannounced title. It’s a cooperative exploration game where players step into the role of Arctic researchers and pilot a massive cruiser across a white frozen wasteland, searching for and investigating mysterious anomalies.
+
+                The project went through many iterations. At the beginning of our prototyping phase, the original idea was very different from what it eventually became. Here I want to talk about the steps I went through and how I was able to support and accompany the project’s development, from the first prototype all the way to the MVP.
+
+                The project is still in development, with an early access release currently planned for the end of 2026.
               </Paragraph>
 
-              <BlogLink title="Download full report: " link="/files/Fabio_Mangiameli_Report_Individual_Project.pdf" linkName="Fabio_Mangiameli_Report_Individual_Project.pdf"/>
-              <BlogLink title="Check out the Repository: " link="https://github.com/ChasingCarrots/godot/commits/frozen_bulgur/?author=MangiameliFabio" linkName="My commits"/>
+              <BlogLink title="Chasing Carrots custom Godot fork: " link="https://github.com/ChasingCarrots/godot/commits/frozen_bulgur/?author=MangiameliFabio" linkName="My commits"/>
 
+              <VideoBlock src={"/images/projects/frozen-bulgur/FrozenBulgurShowCasePart1.mp4"} startTime={20}/>
 
-              <SectionTitle>The problem with the default model</SectionTitle>
+              <TableOfContents />
+
+              <SectionTitle>Prototyping</SectionTitle>
 
               <Paragraph>
-                Godot’s multiplayer stack is great for getting started. You can spin up a networked prototype in minutes. RPCs are easy. Synchronization is built in. For small projects, it is honestly hard to beat.
-                The trouble starts when a project grows.
-                Our game already had a classic client to server architecture. Every client talked to a single server peer. If one client wanted to send data to another, the packet went through the server first. That extra hop adds latency and increases server load. For gameplay it is manageable. For voice chat and fast input updates it is not ideal.
+                The project started during the Global Game Jam in 2024. My colleagues explored the feasibility of using Godot to build a cooperative burglar game with proximity voice chat. Players would need to collaborate to sneak into mansions or museums, steal high value objects, and bring them back to their truck. We especially wanted to experiment with noise and how it could lead to detection. Enemy AI reacted to sound events such as running footsteps or falling objects, but also to players talking to each other. The long term goal was for the game to become a tense but humorous stealth experience.
               </Paragraph>
 
-              <ImageBlock src={"/images/projects/godot-networking/ClientServer.png"} caption={"Original client to server setup"} height={300}/>
-              
-              <Paragraph>
-                We also wanted to move away from heavy reliance on Godot specific helpers like MultiplayerSpawner and MultiplayerSynchronizer. They work, but they push you toward a very specific architecture. The studio needed something more modular and closer to the transport layer.
-              </Paragraph>
-
-              <ImageBlock src={"/images/projects/godot-networking/GodotNetworking.png"} caption={"Godot default multiplayer architecture"} height={400}/>
-
-              <SectionTitle>The Communication Line System</SectionTitle>
+              <SubsectionTitel>A very concernd Landlord</SubsectionTitel>
 
               <Paragraph>
-                The answer was a custom framework we call the Communication Line System, or CLS. Instead of building on top of Godot’s RPC layer, CLS talks directly to the MultiplayerPeer. It acts as a lightweight message routing system that lives alongside the engine rather than inside the default MultiplayerAPI.
+                When I joined the project, my task was to refactor the enemy AI, which was a landloard roaming the property. In the current state the landlord was only able to follow a noise or detect a player via ray cast and walk towards the player. I was asked to implement an attack state and refactor the AI logic to use coroutines. The reason for this was that Godot provides a very accessible way to work with coroutines, and we wanted to evaluate how manageable more complex gameplay logic would be. With a simple while loop and the await keyword, it is possible to write code that runs once every frame. This structure allows us to build layered and more complex AI behavior. 
               </Paragraph>
 
-              <ImageBlock src={"/images/projects/godot-networking/CommunicationLineSystem.png"} caption={"Communication Line System architecture"} />
-
-              <BulletList 
-                title="A few design goals guided the system:" 
-                items={[
-                  "Multiple independent CommunicationLineSystems can exist at once",
-                  "Packages can be filtered using bitmasks",
-                  "Authority is handled explicitly",
-                  "Networking code does not depend on scene structure"]}
-              />
+              <CodeBlock code={coroutineSnippet}/>
 
               <Paragraph>
-                Instead of sprinkling RPC calls across dozens of scripts, we route everything through structured communication lines. That makes it easier to reason about what travels over the network and who is allowed to send it.
+                A major advantage of this approach is readability. The logic can be read directly from the code. Our AI will chase a target if one exists. Otherwise it will begin searching for the target. If it is neither chasing nor searching, the AI will listen for noises or fall back to its idle behavior.
               </Paragraph>
 
-              <SectionTitle>Refactoring away from MultiplayerAPI</SectionTitle>
+              <CodeBlock code={behaviourSnippet}/>
 
               <Paragraph>
-                The first real task was ripping out our dependency on Godot’s MultiplayerAPI. Previously, the Communication Line System still used the API internally to access the peer and poll data. I rewired it so CLS owns a direct reference to the MultiplayerPeer. Polling is now handled inside our own code, using a stripped down version of Godot’s internal networking loop. Authority was another big change. Godot assigns authority by peer ID. We replaced that with a bitmask based system. The first bit represents authority. Messages can be filtered by checking these bits, which makes routing flexible and cheap.
+                Inside the coroutine functions we define the individual behaviors. In this example, the routine handles searching an area after the AI loses sight of its target. The AI will search for a fixed amount of time defined by "search_time" and will abort the coroutine early if a target is found or the timer runs out.
               </Paragraph>
 
-              <BulletList 
-                title="I exposed new helper functions to GDScript so gameplay code can ask:" 
-                items={[
-                  "is this peer the authority",
-                  "who currently holds authority",
-                  "is this peer the server"]}
-              />
+              <CodeBlock code={searchSnippet}/>
 
               <Paragraph>
-                Once that was done, I migrated a full test project. Every RPC call was replaced with CommunicationLine calls. All MultiplayerSpawner and MultiplayerSynchronizer usage was removed. The test scene synchronized dozens of data types at regular intervals and displayed them in a debugging window. If anything desynced, it would show immediately. After the refactor, the scene behaved identically to the old implementation. That was the first big milestone.
+                With this the refactor for our first enemy, the Landlord was done and was able to roam, detect players and attack them. We even recorded voice lines to give our landloard some personality.
               </Paragraph>
-              
-              <VideoBlock src={"/images/projects/godot-networking/GodotNetworkingShowCase.mp4"} caption="Showcase: Test project to check networking capabilities"/>
 
-              <SectionTitle>Building a peer to peer mesh</SectionTitle>
+              <VideoBlock src="/images/projects/frozen-bulgur/EnemyAI.mp4" controls={true} muted={false} autoPlay={false}/>
 
               <Paragraph>
-                The next step was building full network meshes. In a mesh, every client is directly connected to every other client. You still keep a logical server for authority and coordination, but data does not need to bounce through it.
+                An issue that came up quickly during development with coroutines was the challenge of debugging. Because coroutines are used, stepping through the code with a debugger becomes more difficult. At every await keyword, the debugger logically jumps to a different point in the code base. This sometimes made it hard to determine exactly which state caused an error and what needed to be fixed. Visibility is key here. A tool that could show the current state of the AI would make debugging much easier. This is where a Godot extension called{" "}
+                <a className="underline" href="https://github.com/limbonaut/limboai">Limbo AI</a> {" "}
+                came in. It adds behavior trees and a visual editor to Godot. Ultimately, the coroutines I implemented are nothing other than a behavior tree, so we wanted to try this tool as well.
               </Paragraph>
-
-              <ImageBlock src={"/images/projects/godot-networking/Mesh.png"} caption={"Network mesh setup"} />
 
               <Paragraph>
-                This matters a lot for proximity voice chat. Audio packets can travel directly between players. That reduces latency and removes unnecessary server load.
+                With some effort, I was able to transfer the current AI behavior controlled by coroutines to a Limbo AI behavior tree and restored the previous behavior of the Landlord. As shown in the following video, the debug menu displays which state within the behavior tree the AI is currently in. This makes it easy to trace problems and spot potential bugs.
               </Paragraph>
 
-              <BulletList 
-                title="I implemented meshes for two backends:" 
-                items={[
-                  "ENet for fast local testing",
-                  "Epic Online Services for shipping"
-                ]}
-              />
-
-              <SectionTitle>
-                ENet mesh
-              </SectionTitle>
+              <VideoBlock src="/images/projects/frozen-bulgur/LimboAI.mp4" caption="Limbo AI debug menu within Godot showing Landlord behavior"></VideoBlock>
 
               <Paragraph>
-                ENet does not give you discovery for free. I had to build a signaling server that hands out IP addresses, ports, and peer IDs. Each peer to peer link needs its own port. You cannot reuse a single port for multiple ENet hosts. The signaling server tracks which ports are in use and distributes them safely.
+                After completing the implementation in Limbo AI, I presented my findings to our engineering lead. It was decided that future AI in the game would be implemented using Limbo AI. In the current state of the project, Limbo AI is also in use for enemies within the anomalies.
               </Paragraph>
 
-              <ImageBlock src={"/images/projects/godot-networking/ENetMesh.png"} caption={"Connection sequence for an ENet mesh"} />
+              <SubsectionTitel>
+                Burglars need an Inventory
+              </SubsectionTitel>
 
               <Paragraph>
-                Once both clients open their hosts and acknowledge the connection, we register the link with Godot using add_mesh_peer. At that point the engine recognizes the peer and CLS can route messages normally. Testing confirmed that clients could send packets directly to each other without touching the server. That was the proof that the mesh actually worked.
+                Another task was the implementation of a simple inventory system. It allowed players to pick up items, store them in one of the inventory slots, and throw them away to free up a slot. It was important to create a synchronized system so that other players could see which item someone was holding in their hand or which item they had just thrown away. I also implemented a placeholder UI to visualize which items were stored in the inventory and which slot was currently active.
               </Paragraph>
 
-              <SectionTitle>
-                EOS mesh
-              </SectionTitle>
+              <VideoBlock src={"/images/projects/frozen-bulgur/InventorySystem.mp4"} ></VideoBlock>
 
               <Paragraph>
-                EOS handles discovery internally, so the setup is cleaner. Clients log in, exchange user IDs, and call add_mesh_peer using those IDs. In practice, everything worked until I tried running two meshes in parallel. One mesh for gameplay. One mesh for voice chat. The second mesh silently failed on one client. The connection request never showed up. Debug tools confirmed that one side believed the peer existed and the other side did not.
+                Another important aspect was handling larger objects like the TV shown in the video clip. Large objects were defined as non storable in the inventory. I implemented it in a way that any item currently held in the player’s hand would automatically be holstered when picking up a large object. If the player switched the active inventory slot, the large object would be dropped.
+                Parts of this inventory system are still in use although in later iteration, it was refactored.
               </Paragraph>
 
-              <ImageBlock src={"/images/projects/godot-networking/EOSMesh.png"} caption={"Connection sequence for an EOS mesh"} />
+              <SubsectionTitel>
+                Creating a Challange
+              </SubsectionTitel>
 
               <Paragraph>
-                After days of stepping through the EOS extension code, I found that the request was likely being swallowed inside the SDK. I could not fix the root cause, so I implemented a workaround. The client repeatedly sends connection requests until confirmation arrives or retries run out. It is not pretty, but it works. Both meshes now register correctly, and voice chat came back to life.
+                With the AI in place and the ability to store items, we were able to properly test the prototype. But we quickly realized it was not enough. While it was fun trying to avoid the landlord, we were missing a clear objective, a challenge the players needed to overcome. We also wanted to actively encourage collaboration, so I implemented a first obstacle tied to the main loot. It was a security door with a periodically changing access code.
               </Paragraph>
 
-              <SectionTitle>Integration and real playtests</SectionTitle>
+              <div className="sm:flex">
+                <VideoBlock src={"/images/projects/frozen-bulgur/SecurityDoor.mp4"}></VideoBlock>
+                <VideoBlock src={"/images/projects/frozen-bulgur/DoorCode.mp4"}></VideoBlock>
+              </div>
 
               <Paragraph>
-                The final step was merging everything into the main project. This was less glamorous than the research work. 
+                Players had to use their walkie talkies to communicate the door code so that another player could open the door and start looting the main objective, stealing the gold ingots. Both the security terminal and the door were placed along the landlord’s default patrol path. Because of that, players had to stay alert and carefully time their actions to avoid getting caught.
               </Paragraph>
-              
-              <BulletList 
-                title="It was a long cleanup pass:" 
-                items={[
-                  "replacing every remaining RPC",
-                  "removing MultiplayerAPI helpers",
-                  "rewriting authority checks",
-                  "Rewriting CLS initialization"
-                ]}
-              />
 
               <Paragraph>
-                Once integrated, the team ran a full studio play session. Everyone connected and completed a full run. Compared to earlier builds, the connection felt more stable and responsive. It is not perfect yet. Later tests still revealed disconnect issues. We cannot say for sure whether those are caused by the new architecture or by unrelated systems. What matters is that the foundation is now flexible enough to debug and extend properly.
+                Another idea were traps. Small obstacles scattered around the level to make things a bit more difficult for the players. I was tasked with implementing a bear trap. As mentioned before, noise was meant to play a bigger role in the game, so the bear trap would not only stun the player and deal damage, it would also attract nearby enemies because of the loud sound it created.
               </Paragraph>
 
-              <SectionTitle>What this actually changed</SectionTitle>
+              <VideoBlock src={"/images/projects/frozen-bulgur/BearTrap.mp4"}></VideoBlock>
 
               <Paragraph>
-                The biggest win is not raw performance. It is control. We now own our networking layer. We can run multiple meshes. We can route messages without fighting the engine. We can build features like proximity voice chat without bending the architecture into strange shapes. The cost is complexity. A custom system always carries maintenance overhead. But for a cooperative multiplayer game that depends heavily on networking, the tradeoff is worth it. Future work will focus on stress testing. We want to see how the system behaves under heavy packet loss, latency spikes, and large amounts of synchronized data. The current implementation is a strong foundation, not a finished solution.
+                In this showcase I increased the damage so the player would immediately die for demonstration purposes. In the actual prototype, the player would get stuck and another teammate had to help release them from the trap. These small traps created a lot of funny situations during playtests. It was hilarious to run from the landlord while the only thing you could hear was your colleague stepping into a bear trap with a loud snap.
               </Paragraph>
 
-              <SectionTitle>Final thoughts</SectionTitle>
+              <SubsectionTitel>
+                The Most Important Team Member: The Truck
+              </SubsectionTitel>
 
               <Paragraph>
-                This project forced me to read and modify large chunks of engine code, debug third party extensions, and design networking architecture that survives real production constraints. It was frustrating at times, especially when a bug hid for days before revealing itself. It was also one of the most rewarding technical deep dives I have done. The game is still in development, but I am glad that part of its foundation now carries my fingerprints. If nothing else, it proved that Godot is flexible enough to support a fully custom multiplayer layer when a project demands it. And sometimes, that is exactly what you need.
+                As professional burglars, of course we needed a reliable truck. We wanted to experiment with having this kind of base entity inside the level, something that felt more meaningful than just a storage space for collected loot. So we decided to give the truck a bit more purpose. I implemented an interactable laptop inside the truck. Once used, it opened a window where players could analyze the building layout and gather information about important locations within the level.
               </Paragraph>
+
+              <VideoBlock src={"/images/projects/frozen-bulgur/LaptopTruck.mp4"}></VideoBlock>
+
+              <Paragraph>
+                Through this task I played more around with UI implementation, espacially in a 3D environment. The laptop screen is a viewport texture using a canvas object to display the UI.
+                The same UI is also dispayed during the starting sequence of the game where additional informations can be bought for money. In this case I enabled all informations for showcasing purposes which can be seen  under "Location Information".
+              </Paragraph>
+
+              <Paragraph>
+                I highlighted some of the key tasks I worked on during the prototyping phase, but there were additional systems as well. For example, I implemented the logic for handling player death. This included applying Godot ragdoll physics, spawning a spectator camera, and monitoring the lose conditions. I also created a scoreboard that was shown at the end of the level once either the win or lose condition was fulfilled. Going into full detail on all of that would probably go beyond the scope of this blog post.
+              </Paragraph>
+
+              <SectionTitle>Implementation of Gameplay Logic</SectionTitle>
+              <SubsectionTitel>Engine System</SubsectionTitel>
+              <SubsectionTitel>Electrical Power System</SubsectionTitel>
+              <SubsectionTitel>Knocking out Players</SubsectionTitel>
+              <SectionTitle>Implementation of Networking Features</SectionTitle>
+              <SubsectionTitel>Physics Synchronization</SubsectionTitel>
+              <SubsectionTitel>Godot Multiplayer Refactor</SubsectionTitel>
+              <SubsectionTitel>Multiplayer Stability</SubsectionTitel>
+              <SubsectionTitel>Package Chunking</SubsectionTitel>
+
+
             </div>
           </div>
         </div>

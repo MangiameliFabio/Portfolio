@@ -9,6 +9,7 @@ import TagButton from "@/components/Blog/TagButton";
 import Paragraph from "@/components/Blog/Paragraph";
 import BlogLink from "@/components/Blog/BlogLink";
 import BulletList from "@/components/Blog/BulletList";
+import TableOfContents from "@/components/Blog/TableOfContents";
 
 export const metadata: Metadata = {
   title: "Custom Multiplayer Networking in Godot",
@@ -52,7 +53,8 @@ const BlogPage = () => {
 
               <BlogLink title="Download full report: " link="/files/Fabio_Mangiameli_Report_Individual_Project.pdf" linkName="Fabio_Mangiameli_Report_Individual_Project.pdf"/>
               <BlogLink title="Check out the Repository: " link="https://github.com/ChasingCarrots/godot/commits/frozen_bulgur/?author=MangiameliFabio" linkName="My commits"/>
-
+              
+              <TableOfContents />
 
               <SectionTitle>The problem with the default model</SectionTitle>
 
