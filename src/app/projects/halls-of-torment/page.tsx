@@ -7,6 +7,8 @@ import Paragraph from "@/components/Blog/Paragraph";
 import BulletList from "@/components/Blog/BulletList";
 import ImageBlock from "@/components/Blog/ImageBlock";
 import VideoBlock from "@/components/Blog/VideoBlock";
+import Roles from "@/components/Blog/Roles";
+import TableOfContents from "@/components/Blog/TableOfContents";
 
 export const metadata: Metadata = {
   title: "Performance optimizations for Halls of Torment",
@@ -39,9 +41,12 @@ const BlogPage = () => {
                   orgaName: "Chasing Carrots",
                   game: "Halls of Torment",
                   date: "2024",
-                  duration: "2 Month"
+                  duration: "2 Month",
+                  teamSize: "10"
                 }}/>
               </div>
+
+              <Roles roles={["Game Programmer", "Engine Programmer"]}></Roles>
 
               <Paragraph>
                 When I joined Chasing Carrots in 2024 as a Game Programmer, my very first assignment was performance. Halls of Torment was still in early access and nearing its console push, and the team had a clear concern: late-game runs were struggling.
@@ -60,6 +65,8 @@ const BlogPage = () => {
               <Paragraph>
                 This became a deep dive into engine-level performance work.
               </Paragraph>
+
+              <TableOfContents />
 
               <SectionTitle>Integrating Tracy</SectionTitle>
 

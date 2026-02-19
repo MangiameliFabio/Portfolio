@@ -71,6 +71,7 @@ const Hero = () => {
               game: "Unanounced Titel",
               date: "2024-2026",
               duration: "1.5 years",
+              teamSize: "10"
             }}></SingleBlog>
           </div>
           <div className="mb-12">
@@ -93,6 +94,7 @@ const Hero = () => {
               game: "Unanounced Titel",
               date: "2025",
               duration: "4 Months",
+              teamSize: "10"
             }}></SingleBlog>
           </div>
           <div className="mb-12">
@@ -115,6 +117,7 @@ const Hero = () => {
               game: "Halls of Torment",
               date: "2024",
               duration: "2 Months",
+              teamSize: "10"
             }}></SingleBlog>
           </div>
           {/* <div className="-mx-4 flex flex-wrap">

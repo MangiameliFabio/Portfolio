@@ -17,6 +17,7 @@ export type Blog = {
   game: string;
   date: string;
   duration: string;
+  teamSize: String;
 };
 
 export type Stat = {
@@ -25,4 +26,5 @@ export type Stat = {
   game: String;
   date: String;
   duration: String;
+  teamSize: String;
 } 

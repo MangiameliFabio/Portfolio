@@ -82,6 +82,18 @@ layer(base);
   }
 }
 
+.table-of-contents {
+  position: relative;
+}
+
+@media (min-width: 1650px) {
+  .table-of-contents {
+    position: fixed;
+    top: 0;
+    left: 20px;
+  }
+}
+
 @utility sticky {
   & .header-logo {
     @apply py-5 lg:py-2;

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Url } from "url";
 
 const Statistics = ({ stat }: { stat: Stat}) => {
-  const { orgaType, orgaName, game, date, duration } = stat;
+  const { orgaType, orgaName, game, date, duration, teamSize } = stat;
   return (
     <>
         <div className="lg:flex items-center">
@@ -25,10 +25,16 @@ const Statistics = ({ stat }: { stat: Stat}) => {
               {date}
             </h4>
           </div>
-          <div className="border-body-color/20 items-center lg:px-5 pb-4 lg:pb-0">
+          <div className="border-body-color/20 items-center lg:border-r lg:px-5 pb-3 lg:pb-0">
             <p className="text-xs text-body-color md:text-sm">Duration</p>
             <h4 className="text-sm text-black dark:text-white sm:text-md md:text-base">
               {duration}
+            </h4>
+          </div>
+          <div className="border-body-color/20 items-center lg:px-5 pb-4 lg:pb-0">
+            <p className="text-xs text-body-color md:text-sm">Team Size</p>
+            <h4 className="text-sm text-black dark:text-white sm:text-md md:text-base">
+              {teamSize}
             </h4>
           </div>
         </div>

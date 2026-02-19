@@ -5,7 +5,7 @@ import TagButton from "./TagButton";
 import Statistics from "./Statistics";
 
 const SingleBlog = ({ blog }: { blog: Blog }) => {
-  const { title, src, paragraph, tags, keyPoints, link, orgaType, orgaName, game, date, duration } = blog;
+  const { title, src, paragraph, tags, keyPoints, link, orgaType, orgaName, game, date, duration, teamSize } = blog;
   return (
     <>
       <div className="group shadow-one hover:shadow-two bg-dark relative overflow-hidden rounded-xs duration-300 px-4 md:px-6">
@@ -64,7 +64,8 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
                       orgaName: orgaName,
                       game: game,
                       date: date,
-                      duration: duration
+                      duration: duration,
+                      teamSize: teamSize,
                     }}/>
         
           <Link

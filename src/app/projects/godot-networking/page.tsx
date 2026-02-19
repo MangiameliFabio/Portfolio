@@ -10,6 +10,7 @@ import Paragraph from "@/components/Blog/Paragraph";
 import BlogLink from "@/components/Blog/BlogLink";
 import BulletList from "@/components/Blog/BulletList";
 import TableOfContents from "@/components/Blog/TableOfContents";
+import Roles from "@/components/Blog/Roles";
 
 export const metadata: Metadata = {
   title: "Custom Multiplayer Networking in Godot",
@@ -41,9 +42,12 @@ const BlogPage = () => {
                   orgaName: "Chasing Carrots",
                   game: "Unanounced Titel",
                   date: "2025",
-                  duration: "4 Month"
+                  duration: "4 Month",
+                  teamSize: "10",
                 }}/>
               </div>
+
+              <Roles roles={["Engine Programmer", "Network Programmer"]}></Roles>
 
               <Paragraph>
                 I spent four months deep inside multiplayer networking in Godot while working with Chasing Carrots on their upcoming co-op project. The goal was simple.

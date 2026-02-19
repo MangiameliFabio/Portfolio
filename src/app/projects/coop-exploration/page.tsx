@@ -13,6 +13,7 @@ import CodeBlock from "@/components/Blog/CodeBlock";
 import { coroutineSnippet, behaviourSnippet, searchSnippet } from "@/code/gdScriptSnippets";
 import SubsectionTitel from "@/components/Blog/SubsectionTitel";
 import TableOfContents from "@/components/Blog/TableOfContents";
+import Roles from "@/components/Blog/Roles";
 
 
 export const metadata: Metadata = {
@@ -45,9 +46,12 @@ const BlogPage = () => {
                   orgaName: "Chasing Carrots",
                   game: "Unanounced Titel",
                   date: "2025",
-                  duration: "1.5 years"
+                  duration: "1.5 years",
+                  teamSize: "10"
                 }}/>
               </div>
+
+              <Roles roles={["Game Programmer", "Engine Programmer", "Network Programmer"]}></Roles>
 
               <Paragraph>
                 The longest time during my work at Chasing Carrots I was assigned to an unannounced title. It’s a cooperative exploration game where players step into the role of Arctic researchers and pilot a massive cruiser across a white frozen wasteland, searching for and investigating mysterious anomalies.
