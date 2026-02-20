@@ -1,12 +1,12 @@
+import SingleBlog from "@/components/Blog/SingleBlog";
+import TagButton from "@/components/Blog/TagButton";
 import Link from "next/link";
-import TagButton from "../Blog/TagButton";
-import SingleBlog from "../Blog/SingleBlog";
 
-const Hero = () => {
+const EnginePortfolio = () => {
   return (
     <>
       <section
-        id="home"
+        id="engine"
         className="relative z-10 overflow-hidden bg-#121723 pb-16 pt-[50px] md:pb-[100px] lg:pt-[80px]"
       >
         <div className="container">
@@ -19,7 +19,7 @@ const Hero = () => {
                   Fabio Mangiameli
               </h1>
               <h2 className="mb-4 text-xl italic leading-tight text-black dark:text-white sm:text-2xl sm:leading-tight md:text-3xl md:leading-tight">
-                  Game Programmer
+                  Engine Programmer
               </h2>
               <p className="mb-4 text-base leading-relaxed! text-black dark:text-white sm:text-lg md:text-xl">
                 My name is Fabio Mangiameli. I currently study Game Technology at the IT University of Copenhagen. I also work as a game programmer for Chasing Carrots. I love game development and have a passion for programming. Have a look at the game projects I did during my studies and professional career.
@@ -396,4 +396,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default EnginePortfolio;
