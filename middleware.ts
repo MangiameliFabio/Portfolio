@@ -7,6 +7,8 @@ export function middleware(request: NextRequest) {
 
   const url = request.nextUrl.clone()
 
+  console.log('Middleware is running! Host:', request.headers.get('host'))
+
   if (url.pathname === '/') {
     if (subdomain === 'engine') {
       url.pathname = '/engine'
