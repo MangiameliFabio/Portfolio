@@ -1,12 +1,12 @@
-import SingleBlog from "@/components/Blog/SingleBlog";
-import TagButton from "@/components/Blog/TagButton";
 import Link from "next/link";
+import TagButton from "../../Blog/TagButton";
+import SingleBlog from "../../Blog/SingleBlog";
 
-const EnginePortfolio = () => {
+const Engine = () => {
   return (
     <>
       <section
-        id="engine"
+        id="home"
         className="relative z-10 overflow-hidden bg-#121723 pb-16 pt-[50px] md:pb-[100px] lg:pt-[80px]"
       >
         <div className="container">
@@ -396,4 +396,4 @@ const EnginePortfolio = () => {
   );
 };
 
-export default EnginePortfolio;
+export default Engine;

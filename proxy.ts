@@ -1,50 +1,43 @@
+// proxy.ts
 import { type NextRequest, NextResponse } from 'next/server';
-
-const rootDomain = 'mydomain.com';
+import { rootDomain } from './lib/utils';
 
 function extractSubdomain(request: NextRequest): string | null {
   const hostname = request.nextUrl.hostname;
-
-  console.log('PROXY hostname:', hostname);
+  const root = rootDomain.replace(/^https?:\/\//, '').split(':')[0];
 
   if (hostname.endsWith('.localhost')) {
     return hostname.replace('.localhost', '');
   }
 
   if (
-    hostname !== rootDomain &&
-    hostname !== `www.${rootDomain}` &&
-    hostname.endsWith(`.${rootDomain}`)
+    hostname !== root &&
+    hostname !== `www.${root}` &&
+    hostname.endsWith(`.${root}`)
   ) {
-    return hostname.replace(`.${rootDomain}`, '');
+    return hostname.replace(`.${root}`, '');
   }
 
   return null;
 }
 
 export function proxy(request: NextRequest) {
-  console.log('PROXY HIT:', request.nextUrl.href);
-
-  const pathname = request.nextUrl.pathname;
-  const subdomain = extractSubdomain(request);
-
-  console.log('pathname:', pathname);
-  console.log('subdomain:', subdomain);
-
-  if (
-    subdomain &&
-    !pathname.startsWith('/s/') &&
-    !pathname.startsWith('/api') &&
-    !pathname.startsWith('/_next')
-  ) {
-    const url = request.nextUrl.clone();
-    url.pathname = `/s/${subdomain}${pathname}`;
-    return NextResponse.rewrite(url);
-  }
-
-  return NextResponse.next();
+  return new NextResponse(`proxy hit: ${request.nextUrl.hostname}`);
 }
 
-export const config = {
-  matcher: ['/((?!api|_next|.*\\..*).*)'],
-};
+// export function proxy(request: NextRequest) {
+//   const pathname = request.nextUrl.pathname;
+//   const subdomain = extractSubdomain(request);
+
+//   if (subdomain && !pathname.startsWith('/s/')) {
+//     const url = request.nextUrl.clone();
+//     url.pathname = `/s/${subdomain}${pathname}`;
+//     return NextResponse.rewrite(url);
+//   }
+
+//   return NextResponse.next();
+// }
+
+// export const config = {
+//   matcher: ['/((?!api|_next|.*\\..*).*)'],
+// };

@@ -1,9 +1,7 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import ThemeToggler from "./ThemeToggler";
+import { useRef, useEffect, useState } from "react";
 import menuData from "./menuData";
 
 const Header = () => {
@@ -23,8 +21,9 @@ const Header = () => {
     }
   };
   useEffect(() => {
-    window.addEventListener("scroll", handleStickyNavbar);
-  });
+  window.addEventListener("scroll", handleStickyNavbar);
+    return () => window.removeEventListener("scroll", handleStickyNavbar);
+  }, []);
 
   // submenu handler
   const [openIndex, setOpenIndex] = useState(-1);
@@ -36,7 +35,31 @@ const Header = () => {
     }
   };
 
-  const usePathName = usePathname();
+  const navRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        navbarOpen &&
+        navRef.current &&
+        !navRef.current.contains(event.target as Node)
+      ) {
+        setNavbarOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [navbarOpen]);
+
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setNavbarOpen(false);
+  }, [pathname]);
 
   return (
     <>
@@ -50,13 +73,13 @@ const Header = () => {
         <div className="container">
           <div className="relative -mx-4 flex items-center justify-between">
             <div className="flex w-full items-center justify-between justify-center px-4">
-              <div>
+              <div ref={navRef}>
                 <button
-                  onClick={navbarToggleHandler}
-                  id="navbarToggler"
-                  aria-label="Mobile Menu"
-                  className="ring-primary absolute top-8 right-2 block translate-y-[-50%] rounded-lg px-3 py-[6px] focus:ring-2 lg:hidden"
-                >
+                    onClick={navbarToggleHandler}
+                    id="navbarToggler"
+                    aria-label="Mobile Menu"
+                    className="ring-primary absolute top-8 right-2 z-50 block translate-y-[-50%] rounded-lg px-3 py-[6px] focus:ring-2 lg:hidden"
+                  >
                   <span
                     className={`relative my-1.5 block h-0.5 w-[30px] bg-black transition-all duration-300 dark:bg-white ${
                       navbarOpen ? "top-[7px] rotate-45" : " "
@@ -83,18 +106,19 @@ const Header = () => {
                 >
                   <ul className="block lg:flex lg:space-x-12">
                     {menuData.map((menuItem, index) => (
-                      <li key={index} className="group relative">
+                      <li key={menuItem.id} className="group relative">
                         {menuItem.path ? (
                           <Link
-                            href={menuItem.path}
-                            className={`flex py-2 text-base lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 ${
-                              usePathName === menuItem.path
-                                ? "text-primary dark:text-white"
-                                : "text-dark hover:text-primary dark:text-white/70 dark:hover:text-white"
-                            }`}
-                          >
-                            {menuItem.title}
-                          </Link>
+                              href={menuItem.path}
+                              onClick={() => setNavbarOpen(false)}
+                              className={`flex py-2 text-base lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 ${
+                                pathname === menuItem.path
+                                  ? "text-primary dark:text-white"
+                                  : "text-dark hover:text-primary dark:text-white/70 dark:hover:text-white"
+                              }`}
+                            >
+                              {menuItem.title}
+                            </Link>
                         ) : (
                           <>
                             <p

@@ -1,8 +1,8 @@
 import Link from "next/link";
-import TagButton from "../Blog/TagButton";
-import SingleBlog from "../Blog/SingleBlog";
+import TagButton from "../../Blog/TagButton";
+import SingleBlog from "../../Blog/SingleBlog";
 
-const Hero = () => {
+const Gameplay = () => {
   return (
     <>
       <section
@@ -19,7 +19,7 @@ const Hero = () => {
                   Fabio Mangiameli
               </h1>
               <h2 className="mb-4 text-xl italic leading-tight text-black dark:text-white sm:text-2xl sm:leading-tight md:text-3xl md:leading-tight">
-                  Game Programmer
+                  Gameplay Programmer
               </h2>
               <p className="mb-4 text-base leading-relaxed! text-black dark:text-white sm:text-lg md:text-xl">
                 My name is Fabio Mangiameli. I currently study Game Technology at the IT University of Copenhagen. I also work as a game programmer for Chasing Carrots. I love game development and have a passion for programming. Have a look at the game projects I did during my studies and professional career.
@@ -50,7 +50,7 @@ const Hero = () => {
             </div>
           </div>
           <h1 className="mb-4 md:mb-10 text-2xl font-bold leading-tight text-black dark:text-white sm:text-3xl sm:leading-tight md:text-4xl md:leading-tight">
-            Engine Programming related Projects
+            Gameplay Programming related Projects
           </h1>
           <div className="mb-12">
             <SingleBlog blog={{
@@ -396,4 +396,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default Gameplay;

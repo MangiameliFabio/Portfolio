@@ -35,7 +35,7 @@ const TableOfContents = () => {
   }, []);
 
   return (
-    <nav className="my-2 md:my-5 table-of-contents">
+    <nav className="my-2 md:my-60 table-of-contents">
       <h2 className="md:mb-1 py-1 md:py-2 text-xl font-bold leading-tight text-black dark:text-white sm:text-2xl sm:leading-tight md:text-3xl md:leading-tight">Contents</h2>
       <ul className="space-y-1 md:space-y-2 text-lg">
         {items.map((item) => (
