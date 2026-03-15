@@ -30,8 +30,8 @@ function getSubdomain(host: string) {
     return hostname.replace('.localhost', '');
   }
 
-  if (hostname.endsWith('.mydomain.com')) {
-    return hostname.replace('.mydomain.com', '');
+  if (hostname.endsWith('.fabiomangiameli.com')) {
+    return hostname.replace('.fabiomangiameli.com', '');
   }
 
   return null;
