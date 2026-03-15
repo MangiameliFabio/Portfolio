@@ -15,6 +15,7 @@ import SubsectionTitel from "@/components/Blog/SubsectionTitel";
 import TableOfContents from "@/components/Blog/TableOfContents";
 import Roles from "@/components/Blog/Roles";
 import PageStyling from "@/components/Common/PageStyling";
+import { getPortfolioProjectByLink } from "@/data/portfolioProjects";
 
 
 export const metadata: Metadata = {
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
   description: "Custom Multiplayer Networking in Godot",
 };
 
-const tags = ["C++", "GDScript", "Godot"];
+const tags = getPortfolioProjectByLink("/projects/coop-exploration")?.tags ?? [];
 
 const BlogPage = () => {
   return (

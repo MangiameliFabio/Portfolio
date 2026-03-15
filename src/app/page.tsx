@@ -1,6 +1,7 @@
 import ScrollUp from "@/components/Common/ScrollUp";
 import Engine from "@/components/Portfolios/Engine";
 import Gameplay from "@/components/Portfolios/Gameplay";
+import Welcome from "@/components/Portfolios/Welcome";
 
 import { Metadata } from "next";
 
@@ -44,21 +45,38 @@ export default async function HomePage() {
   if (!subdomain) {
     return (
       <>
+        <Welcome/>
         <ScrollUp />
       </>
     );
   }
 
+
   if (subdomain === 'engine') {
-    return <Engine/>;
+    return (
+      <>
+        <Engine/>
+        <ScrollUp />
+      </>
+    );
   }
 
   if (subdomain === 'game') {
-    return <Gameplay/>;
+    return (
+      <>
+        <Gameplay/>
+        <ScrollUp />
+      </>
+    );
   }
 
   if (subdomain === 'graphics') {
-    return <div>Graphics homepage</div>;
+    return (
+      <>
+        <div>Graphics homepage</div>;
+        <ScrollUp />
+      </>
+    );
   }
 
   notFound();

@@ -11,13 +11,14 @@ import BlogLink from "@/components/Blog/BlogLink";
 import BulletList from "@/components/Blog/BulletList";
 import TableOfContents from "@/components/Blog/TableOfContents";
 import Roles from "@/components/Blog/Roles";
+import { getPortfolioProjectByLink } from "@/data/portfolioProjects";
 
 export const metadata: Metadata = {
   title: "Custom Multiplayer Networking in Godot",
   description: "Custom Multiplayer Networking in Godot",
 };
 
-const tags = ["C++", "GDScript", "Godot"];
+const tags = getPortfolioProjectByLink("/projects/godot-networking")?.tags ?? [];
 
 const BlogPage = () => {
   return (

@@ -57,7 +57,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
             {paragraph}
           </p>
         </div>
-        <div className="lg:flex">
+        <div className="lg:flex mb-4">
           <Statistics 
                     stat={{
                       orgaType: orgaType,
@@ -72,8 +72,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
             href={link}
             className="ml-auto cursor-pointer"
           >
-            <button className=" mb-4 lg:mb-6 shadow-submit dark:shadow-submit-dark bg-primary hover:bg-primary/90 rounded-xs px-9 py-4 text-base leading-relaxed! text-black dark:text-white sm:text-lg md:text-xl duration-300 cursor-pointer w-full mg:w-auto">
-              
+            <button className="shadow-submit dark:shadow-submit-dark bg-primary hover:bg-primary/90 rounded-xs md:px-6 py-2 text-base leading-relaxed! text-black dark:text-white sm:text-md md:text-lg duration-300 cursor-pointer w-full mg:w-auto">
               Go to Project
             </button>
           </Link>

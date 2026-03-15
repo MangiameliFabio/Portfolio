@@ -1,4 +1,5 @@
 import PageStyling from "@/components/Common/PageStyling";
+import AllProjectsContent from "@/components/Portfolios/AllProjects";
 
 import { Metadata } from "next";
 
@@ -12,6 +13,7 @@ const AllProjects = () => {
   return (
     <>
       <PageStyling/>
+      <AllProjectsContent />
     </>
   );
 };

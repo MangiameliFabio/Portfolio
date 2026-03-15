@@ -9,13 +9,14 @@ import ImageBlock from "@/components/Blog/ImageBlock";
 import VideoBlock from "@/components/Blog/VideoBlock";
 import Roles from "@/components/Blog/Roles";
 import TableOfContents from "@/components/Blog/TableOfContents";
+import { getPortfolioProjectByLink } from "@/data/portfolioProjects";
 
 export const metadata: Metadata = {
   title: "Performance optimizations for Halls of Torment",
   description: "Performance optimizations for Halls of Torment",
 };
 
-const tags = ["C++", "GDScript", "Godot", "Tracy"];
+const tags = getPortfolioProjectByLink("/projects/halls-of-torment")?.tags ?? [];
 
 const BlogPage = () => {
   return (
