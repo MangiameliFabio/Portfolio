@@ -27,11 +27,13 @@ function getSubdomain(host: string) {
   const hostname = host.split(':')[0];
 
   if (hostname.endsWith('.localhost')) {
-    return hostname.replace('.localhost', '');
+    const subdomain = hostname.replace('.localhost', '');
+    return subdomain === 'www' ? null : subdomain;
   }
 
   if (hostname.endsWith('.fabiomangiameli.com')) {
-    return hostname.replace('.fabiomangiameli.com', '');
+    const subdomain = hostname.replace('.fabiomangiameli.com', '');
+    return subdomain === 'www' ? null : subdomain;
   }
 
   return null;
