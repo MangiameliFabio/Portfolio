@@ -8,7 +8,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
   const { title, src, paragraph, tags, keyPoints, link, orgaType, orgaName, game, date, duration, teamSize } = blog;
   return (
     <>
-      <div className="group shadow-one hover:shadow-two bg-dark relative overflow-hidden rounded-xs duration-300 px-4 md:px-6">
+      <div className="group shadow-one hover:shadow-two bg-dark relative overflow-hidden duration-300 px-4 md:px-6 rounded-3xl border border-white/10">
         <h3 className="border-body-color/20 border-b py-3 md:py-6 hover:text-primary text-xl font-bold leading-tight text-black dark:text-white sm:text-2xl sm:leading-tight md:text-3xl md:leading-tight">
           <Link
             href={link}
@@ -37,7 +37,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
                 loop
                 muted
                 playsInline
-                className="w-full h-auto max-w-full rounded-md object-contain"
+                className="w-full h-auto max-w-full rounded-xl object-contain"
               />
             </div>
           </div>
@@ -48,7 +48,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
               loop
               muted
               playsInline
-              className="w-full h-auto max-w-full rounded-md object-contain"
+              className="w-full h-auto max-w-full rounded-xl object-contain"
             />
           </div>
         </div>
@@ -72,7 +72,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
             href={link}
             className="ml-auto cursor-pointer"
           >
-            <button className="shadow-submit dark:shadow-submit-dark bg-primary hover:bg-primary/90 rounded-xs md:px-6 py-2 text-base leading-relaxed! text-black dark:text-white sm:text-md md:text-lg duration-300 cursor-pointer w-full mg:w-auto">
+            <button className="shadow-submit dark:shadow-submit-dark bg-primary hover:bg-primary/90 rounded-lg md:px-6 py-2 text-base leading-relaxed! text-black dark:text-white sm:text-md md:text-lg duration-300 cursor-pointer w-full mg:w-auto">
               Go to Project
             </button>
           </Link>

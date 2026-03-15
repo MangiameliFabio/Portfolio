@@ -14,11 +14,11 @@ const tagButtonBaseClassName =
   "bg-primary rounded-full mb-2 md:mb-3 mr-1 md:mr-2 inline-flex items-center justify-center px-3 md:px-4 py-1 md:py-2 text-sm md:text-lg duration-300";
 
 const AllProjectsContent = () => {
-  const [selectedTags, setSelectedTags] = useState<string[]>(portfolioProjectTags);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const filteredProjects = useMemo(() => {
     if (selectedTags.length === 0) {
-      return [];
+      return portfolioProjects;
     }
 
     return portfolioProjects.filter((project) =>
@@ -35,7 +35,7 @@ const AllProjectsContent = () => {
   };
 
   const resetFilters = () => {
-    setSelectedTags(portfolioProjectTags);
+    setSelectedTags([]);
   };
 
   return (
@@ -81,7 +81,7 @@ const AllProjectsContent = () => {
           </div>
           <p className="mb-2 text-sm text-body-color md:text-base">
             {selectedTags.length === 0
-              ? "No tags selected. Select a tag to show matching projects."
+              ? "All tags are currently off. Showing every project until you enable a tag."
               : `${selectedTags.length} active tag${
                   selectedTags.length === 1 ? "" : "s"
                 }`}
@@ -89,7 +89,7 @@ const AllProjectsContent = () => {
           <button
             type="button"
             onClick={resetFilters}
-            className="mb-4 lg:mb-6 shadow-submit dark:shadow-submit-dark bg-primary hover:bg-primary/90 rounded-xs px-4 md:px-6 py-1 md:py-2 text-base leading-relaxed! text-black dark:text-white sm:text-md md:text-lg duration-300 cursor-pointer md:w-auto"
+            className="mb-4 lg:mb-6 shadow-submit dark:shadow-submit-dark bg-primary hover:bg-primary/90 rounded-lg px-4 md:px-6 py-1 md:py-2 text-base leading-relaxed! text-black dark:text-white sm:text-md md:text-lg duration-300 cursor-pointer md:w-auto"
             >
               Reset all tags
           </button>
@@ -106,8 +106,8 @@ const AllProjectsContent = () => {
                 No projects match the current filter
               </h3>
               <p className="mx-auto max-w-[700px] text-base leading-relaxed text-black dark:text-white md:text-lg">
-                Try turning a few tags back on or reset the filter to browse the
-                all projects again.
+                Try enabling different tags or reset the filter to show all
+                projects again.
               </p>
             </div>
           )}
