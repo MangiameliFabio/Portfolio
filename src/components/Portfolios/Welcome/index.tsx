@@ -13,7 +13,7 @@ const Welcome = () => {
           <div className="mb-10 flex flex-row items-center md:mb-20">
             <div className="mr-10 hidden w-70 min-w-[300px] xl:block">
               <img
-                src="/images/portfolio/fabio_profile_picture.jpg"
+                src="/images/fabio_profile_picture.jpg"
                 className="rounded-full"
               ></img>
             </div>

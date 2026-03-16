@@ -41,7 +41,7 @@ const AllProjectsContent = () => {
   return (
     <section className="relative overflow-hidden pb-16 pt-[120px] md:pb-[100px]">
       <div className="container">
-        <div className="mx-auto mb-10 max-w-[900px] text-center md:mb-14">
+        <div className="mx-auto mb-10 md:mb-14">
           <BlogTitle>
             All of my projects
           </BlogTitle>

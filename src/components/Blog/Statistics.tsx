@@ -1,12 +1,10 @@
 import { Stat } from "@/types/blog";
-import Link from "next/link";
-import { Url } from "url";
 
 const Statistics = ({ stat }: { stat: Stat}) => {
   const { orgaType, orgaName, game, date, duration, teamSize } = stat;
   return (
     <>
-        <div className="lg:flex items-center">
+        <div className="lg:flex items-center border-body-color/20">
           <div className="border-body-color/20 items-center lg:border-r lg:pr-5 pb-3 lg:pb-0">
             <p className="text-xs text-body-color md:text-sm">{orgaType}</p>
             <h4 className="text-sm text-black dark:text-white md:text-base">
@@ -31,7 +29,7 @@ const Statistics = ({ stat }: { stat: Stat}) => {
               {duration}
             </h4>
           </div>
-          <div className="border-body-color/20 items-center lg:px-5 pb-4 lg:pb-0">
+          <div className="items-center lg:px-5 lg:pb-0">
             <p className="text-xs text-body-color md:text-sm">Team Size</p>
             <h4 className="text-sm text-black dark:text-white md:text-base">
               {teamSize}

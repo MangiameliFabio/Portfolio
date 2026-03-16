@@ -1,8 +1,9 @@
 import FavoriteGamesCarousel from "@/components/About/FavoriteGamesCarousel";
+import PageStyling from "@/components/Common/PageStyling";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About Me",
   description:
     "Learn more about me, my game development journey, favorite games, and social links.",
 };
@@ -11,17 +12,19 @@ const AboutPage = () => {
   return (
     <main className="overflow-hidden pt-12 md:pt-14 lg:pt-16">
       <section className="pb-14 pt-10 md:pb-20">
+        <PageStyling/>
         <div className="container">
           <div className="flex justify-center xl:justify-start">
             <div className="w-70 min-w-[300px]  hidden xl:block">
-               <img src="/images/portfolio/fabio_profile_picture.jpg" className="rounded-full"></img>
+               <img src="/images/fabio_profile_picture.jpg" className="rounded-full"></img>
             </div>
             <div className="max-w-3xl text-center xl:text-left mx-auto xl:mx-10">
               <h1 className="mt-4 text-4xl font-black text-white sm:text-5xl lg:text-6xl">
-                Game developer by day, Gamer by heart
+                Fabio Mangiameli <br/>
+                <i>Game Developer</i>
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-8 text-body-color-dark mx-auto xl:mx-0">
-                I am Fabio Mangiameli, a game developer with a strong focus on the technical side of games. I enjoy programming new gameplay features as well as building whole systems from the ground up. I am also interested in simulations and in creating helpful tools that make work easier for my team.
+                On this page, I want to share a bit about who I am, how I got into game development, and the experiences that shaped me along the way. It is a look at my journey so far, the things I have learned, and the games, ideas, and people that continue to inspire me.
               </p>
             </div>
           </div>

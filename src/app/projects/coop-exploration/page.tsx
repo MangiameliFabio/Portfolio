@@ -2,20 +2,20 @@ import Image from "next/image";
 import { Metadata } from "next";
 import BlogTitle from "@/components/Blog/BlogTitel";
 import SectionTitle from "@/components/Blog/SectionTitel";
-import ImageBlock from "@/components/Blog/ImageBlock";
 import VideoBlock from "@/components/Blog/VideoBlock";
 import Statistics from "@/components/Blog/Statistics";
 import TagButton from "@/components/Blog/TagButton";
 import Paragraph from "@/components/Blog/Paragraph";
 import BlogLink from "@/components/Blog/BlogLink";
-import BulletList from "@/components/Blog/BulletList";
 import CodeBlock from "@/components/Blog/CodeBlock";
-import { coroutineSnippet, behaviourSnippet, searchSnippet } from "@/code/gdScriptSnippets";
+import { coroutineSnippet, behaviourSnippet, searchSnippet } from "@/code/gdNeighbour";
+
 import SubsectionTitel from "@/components/Blog/SubsectionTitel";
 import TableOfContents from "@/components/Blog/TableOfContents";
 import Roles from "@/components/Blog/Roles";
 import PageStyling from "@/components/Common/PageStyling";
 import { getPortfolioProjectByLink } from "@/data/portfolioProjects";
+import { durabilityModule, enginePartModule, turboBoost, turboChargerSnippet } from "@/code/gdTurboCharger";
 
 
 export const metadata: Metadata = {
@@ -41,8 +41,7 @@ const BlogPage = () => {
                     <TagButton key={index} text={tag}/>
                   ))}
                 </div>
-
-                <div className="border-body-color/20  border-b md:border-none mb-2 md:mb-6">
+                
                 <Statistics
                   stat={{
                     orgaType: "Company",
@@ -52,7 +51,6 @@ const BlogPage = () => {
                     duration: "1.5 years",
                     teamSize: "10"
                   }}/>
-                </div>
 
                 <Roles roles={["Game Programmer", "Engine Programmer", "Network Programmer"]}></Roles>
 
@@ -161,7 +159,7 @@ const BlogPage = () => {
                 </Paragraph>
 
                 <SubsectionTitel>
-                  The Most Important Team Member: The Truck
+                  The Truck
                 </SubsectionTitel>
 
                 <Paragraph>
@@ -180,7 +178,59 @@ const BlogPage = () => {
                 </Paragraph>
 
                 <SectionTitle>Implementation of Gameplay Logic</SectionTitle>
+
+                <Paragraph>
+                 During the prototyping phase, our project leads came up with a new direction for the game. It kept some similar features, but the setting changed completely. Instead of burglars, the players became arctic explorers uncovering the secrets of a frozen desert. This was also a time when a lot changed in my own life, because I started my master's degree and moved to Copenhagen. As a result, I went from working full time to part time and started working remotely.
+                </Paragraph>
+
+                <Paragraph>
+                  My gameplay programming tasks included implementing the cruiser's engine, its electrical power setup, and a temperature mechanic that allowed heat to move between rooms. Another major part of my work was the player damage logic, including knockout and revive mechanics. I also worked on item storage and created a synchronized solution for how and where items are kept.
+                </Paragraph>
+
+                <Paragraph>
+                  In the following sections, I want to talk about three gameplay features that influenced each other but can also be used separately. They all came together inside the cruiser, but an important part of the game design was that they should also work in other contexts. There could, for example, be other engines somewhere else in the world, maybe inside a broken cruiser, and the electrical setup also needed to be reusable in different situations. Because of that, I tried to build these modules in a way where they did not need to know where they were being used, but would always behave consistently.
+                </Paragraph>
+
                 <SubsectionTitel>Engine System</SubsectionTitel>
+
+                <Paragraph>
+                  There was already an existing engine module implemented by our tech lead, and it exposed a lot of different engine stats. At that point, though, many of them were not really being used yet. The idea was that the engine should feel like an object in the world that needs constant maintenance. My task was to add engine parts that introduced new values and made use of existing ones like engine RPM.
+                </Paragraph>
+
+                <Paragraph>
+                  Every engine part is tied to a specific value and directly affects how the engine behaves. Parts like the turbocharger reduce the engine's maximum RPM depending on their durability. Others, like the fuel pump, cause the whole engine to fail when they break. The engine cooler, on the other hand, raises the temperature of the engine which leads to more damage and is also tied to the temperature system which will increase the temperature in the room.
+                </Paragraph>
+
+                <Paragraph>
+                  As an example here the code for the turbo charger:
+                </Paragraph>
+
+                <CodeBlock code={turboChargerSnippet}  />
+
+                <Paragraph>
+                  BoostCharge is the specific value influenced by the turbocharger. In the real world, turbochargers generate boost based on the amount of exhaust gas the engine produces, so there is a direct relationship with RPM. More RPM creates more boost, and more boost increases RPM in return. What I found especially interesting about this implementation was that it created an actual feeling of turbo lag. In real engines, turbo lag happens when there is not enough exhaust gas for the turbocharger to deliver its full power. The effect on the engine RPM is implemented as follows:
+                </Paragraph>
+
+                <CodeBlock code={turboBoost}/>
+
+                <Paragraph>
+                  In total, I worked on five different engine parts, each with its own impact on the engine. But of course, we also needed some more gameplay around it. This is where the repair mechanic came in. A part's durability always has a direct impact on its specific value. For example, a turbocharger with 25% durability left has a reduced maximum boost charge.
+                </Paragraph>
+                
+                <Paragraph>
+                  The engine parts consist of several different modules, and I am only showing the ones here that are relevant to the overall engine behavior. To apply the durability penalty to a part, I created a more general module that is shared across all the different engine parts.
+                </Paragraph>
+
+                <CodeBlock code={enginePartModule}></CodeBlock>
+                  
+                <Paragraph>
+                  This code also handles what happens when an engine part is detached. As described earlier, the engine should not work when a part like the fuel pump is missing. To actively decrease part durability over time, another module is used that periodically lowers the quality of an engine part based on RPM and engine temperature.
+                </Paragraph>
+
+                <CodeBlock code={durabilityModule}/>
+
+                <Paragraph>Important to mention is that the whole engine logic is only calculated on the server, clients will recive updates for specific values for example if the specific value is displayed somewehere in the cruiser.</Paragraph>
+
                 <SubsectionTitel>Electrical Power System</SubsectionTitel>
                 <SubsectionTitel>Knocking out Players</SubsectionTitel>
                 <SectionTitle>Implementation of Networking Features</SectionTitle>

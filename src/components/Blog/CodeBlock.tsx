@@ -15,7 +15,7 @@ const CodeBlock = ({ code, language = "javascript", title }: CodeBlockProps) => 
       </p>
     )}
 
-    <div className="mb-4 rounded-xl overflow-hidden text-sm sm:text-base">
+    <div className="mb-4 overflow-hidden rounded-xl text-sm sm:text-base">
       <SyntaxHighlighter
         language={language}
         style={vscDarkPlus}
@@ -23,6 +23,8 @@ const CodeBlock = ({ code, language = "javascript", title }: CodeBlockProps) => 
           margin: 0,
           padding: "1rem",
           background: "#1e1e1e",
+          maxHeight: "500px",
+          overflow: "auto",
         }}
       >
         {code}

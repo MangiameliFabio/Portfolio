@@ -12,7 +12,7 @@ const Engine = () => {
         <div className="container">
           <div className="mb-10 md:mb-20 flex flex-row items-center">
             <div className="w-70 min-w-[300px]  hidden xl:block mr-10">
-               <img src="/images/portfolio/fabio_profile_picture.jpg" className="rounded-full"></img>
+               <img src="/images/fabio_profile_picture.jpg" className="rounded-full"></img>
             </div>
             <div className="max-w-[900px] flex flex-col justify-items-center">
               <h1 className="mb-1 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">

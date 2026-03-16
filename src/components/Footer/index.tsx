@@ -9,11 +9,13 @@ const Footer = () => {
         <div className="container">
           <div className="flex items-center justify-center text-center flex-col">
             <p className="max-w-[500px]">
-              Wow! glad you reached the bottom of my Website! You must have really liked it 😎
-            </p>
-            <h2 className="text-xl mt-5">
-              Social Links
-            </h2>         
+              Wow! glad you reached the bottom of my Website. You must have really liked it 😎<br/>
+              Make sure to check out my socials and my{" "}
+              <Link href="/all-projects" className="text-primary hover:underline">
+                other projects
+              </Link>
+              !
+            </p>       
             <div className="flex items-center mb-5 mt-3">
               <a
                 href="https://www.linkedin.com/in/fabiomangiameli/"
