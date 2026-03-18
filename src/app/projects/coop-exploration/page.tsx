@@ -15,7 +15,7 @@ import TableOfContents from "@/components/Blog/TableOfContents";
 import Roles from "@/components/Blog/Roles";
 import PageStyling from "@/components/Common/PageStyling";
 import { getPortfolioProjectByLink } from "@/data/portfolioProjects";
-import { durabilityModule, enginePartModule, turboBoost, turboChargerSnippet } from "@/code/gdTurboCharger";
+import { durabilityModule, enginePartModule, fuelTransferModule, tankModule, turboBoost, turboChargerSnippet } from "@/code/gdEngine";
 
 
 export const metadata: Metadata = {
@@ -229,8 +229,42 @@ const BlogPage = () => {
 
                 <CodeBlock code={durabilityModule}/>
 
-                <Paragraph>Important to mention is that the whole engine logic is only calculated on the server, clients will recive updates for specific values for example if the specific value is displayed somewehere in the cruiser.</Paragraph>
+                <Paragraph>
+                  To repair an engine part, the player first has to detach it from the engine. Since missing parts directly affect engine behavior, the engine also needs to react when a component is removed. Once detached, the part can be picked up and placed on the workbench, which opens the repair UI. After the repair is finished, the player can pick up the part again and reattach it to the engine. To support this workflow, I reused an existing attachment system and used it for both the workbench and the engine itself.
+                </Paragraph>
 
+                <VideoBlock src={"/images/projects/frozen-bulgur/EngineRepair.mp4"}/>
+
+                <Paragraph>
+                  Of course, the engine also needs fuel to run. Part of my work was to add refueling to the cruiser's tank and make sure the engine shuts down once that tank is empty. Players can store fuel canisters in the cruiser and later use them to transport fuel from depots or other tanks in the world. To support that, I split the system into two reusable modules: one for storing fuel and one for transferring it.
+                </Paragraph>
+
+                <Paragraph>
+                  The fuel storage module is intentionally simple. It keeps track of the current fuel level, checks whether a tank is empty or full, and provides helper functions for increasing or decreasing the amount of fuel. That made it easy to plug the same logic into different objects while also giving the engine a clear source of truth for whether it is still able to run.
+                </Paragraph>
+
+                <CodeBlock code={tankModule}/>
+
+                <Paragraph>
+                  The transfer module is a bit more involved because it connects directly to our interaction system. It needs to support two player actions, filling a tank and pumping fuel out of a tank. This is what allows a fuel canister to act as a bridge between different fuel sources in the world. In practice, that means the same system can be used to move fuel into the cruiser, take fuel back out again, or connect other compatible tanks without building a separate solution for each case.
+                </Paragraph>
+
+                <CodeBlock code={fuelTransferModule}/>
+
+                <Paragraph>
+                  With these two modules in place, players can use fuel canisters to keep the cruiser running, but they can also use the exact same mechanics in other contexts. That was an important goal throughout this feature, because the engine systems were designed to work not only inside the cruiser but anywhere else in the game world where similar machinery might appear.
+                </Paragraph>
+
+                <VideoBlock src={"/images/projects/frozen-bulgur/Fueling.mp4"}/>
+
+                <Paragraph>
+                  Another important detail is that the complete engine logic is calculated on the server. Clients only receive the specific values they need for feedback, UI, or interactions inside the cruiser. This keeps the behavior consistent for all players in multiplayer while still allowing the engine to feel responsive and readable from the client side.
+                </Paragraph>
+
+                <Paragraph>
+                  Taken together, the engine became much more than a simple object that can be switched on and off. Fuel, detachable parts, durability, and temperature all influence each other, which makes the cruiser feel like a machine that players have to understand and maintain over time. That interplay was what made the system interesting to build, because each individual mechanic is useful on its own, but together they create a much stronger gameplay loop.
+                </Paragraph>
+                <SubsectionTitel>Temperature System</SubsectionTitel>
                 <SubsectionTitel>Electrical Power System</SubsectionTitel>
                 <SubsectionTitel>Knocking out Players</SubsectionTitel>
                 <SectionTitle>Implementation of Networking Features</SectionTitle>

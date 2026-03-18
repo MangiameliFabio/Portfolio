@@ -84,6 +84,7 @@ layer(base);
 
 .table-of-contents {
   position: relative;
+  z-index: 9999;
 }
 
 @media (min-width: 1650px) {
