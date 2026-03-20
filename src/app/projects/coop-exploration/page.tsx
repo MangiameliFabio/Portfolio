@@ -16,6 +16,9 @@ import Roles from "@/components/Blog/Roles";
 import PageStyling from "@/components/Common/PageStyling";
 import { getPortfolioProjectByLink } from "@/data/portfolioProjects";
 import { durabilityModule, enginePartModule, fuelTransferModule, tankModule, turboBoost, turboChargerSnippet } from "@/code/gdEngine";
+import { characterTemperature, connectionTemperature, roomTemperature, temperatureSource } from "@/code/gdTemperature";
+import { batteryModule } from "@/code/gdBattery";
+import { knockout, knockoutMover } from "@/code/gdKnockout";
 
 
 export const metadata: Metadata = {
@@ -264,9 +267,85 @@ const BlogPage = () => {
                 <Paragraph>
                   Taken together, the engine became much more than a simple object that can be switched on and off. Fuel, detachable parts, durability, and temperature all influence each other, which makes the cruiser feel like a machine that players have to understand and maintain over time. That interplay was what made the system interesting to build, because each individual mechanic is useful on its own, but together they create a much stronger gameplay loop.
                 </Paragraph>
+
                 <SubsectionTitel>Temperature System</SubsectionTitel>
+
+                <Paragraph>
+                  A big part of the game takes place in the endless cold of Antarctica, so temperature plays an important role throughout the whole experience. Because of that, I was tasked with implementing a system that allows heat sources in the game to directly affect the spaces around them.
+                  A good example is the cruiser, where the engine acts as a heat source and warms up the engine room. The system can then transfer heat from one room to another, which makes it possible to gradually warm up the whole cruiser. The player character is also affected by the temperature of the room they are currently in. If they stay in the cold for too long, they slowly freeze and eventually get knocked out.
+                </Paragraph>
+
+                <Paragraph>
+                  I started by creating heat sources with a shared base class that other heat sources could inherit from. This base class stores the current temperature of the source, its exchange rate, and a reference to the room the source is affecting.
+                </Paragraph>
+
+                <CodeBlock code={temperatureSource} />
+
+                <Paragraph>
+                  To handle temperature exchange between rooms, I implemented room doors as heat sources. I called this module <code>ConnectionTemperatureSource.gd</code>, since it is specifically used for transferring heat between connected spaces. The module stores a reference to another room, reads that room&apos;s current temperature, and uses it to influence the temperature of the room it belongs to. The connection can also be configured with a float value that defines how much heat is allowed to pass through. This made it possible to support doors that are fully open, fully closed, or somewhere in between.
+                </Paragraph>
+
+                <CodeBlock code={connectionTemperature} />
+
+                <Paragraph>
+                  To actually apply temperature to a room, I implemented a room temperature module. This module stores references to all heat sources inside the room and periodically updates the current room temperature based on those sources and the room&apos;s volume coefficient. That coefficient lets bigger rooms change temperature more slowly than smaller ones. One example of a heat source here is the engine, which produces heat based on its RPM. If the engine cooler is broken, it produces even more heat, but that also puts additional strain on the other engine parts and reduces their durability.
+                </Paragraph>
+
+                <CodeBlock code={roomTemperature} />
+
+                <Paragraph>
+                  Finally, I needed to connect the temperature system to the player so it would have a real gameplay impact. The player has a freezing state that tracks how far the freezing process has progressed. Depending on the current temperature of the room the player is currently in, I decrease or increase the freezing state. Based on that value, the character receives a movement speed penalty. I implemented this by defining a freeze speed reduction that is sampled through a curve using the current freezing state as input.
+                </Paragraph>
+
+                <CodeBlock code={characterTemperature} />
+
                 <SubsectionTitel>Electrical Power System</SubsectionTitel>
+
+                <Paragraph>
+                  We need power, so I was tasked with implementing a small electricity system for the game. Electricity affects objects such as light sources and the engine ignition button, which means the system needed to be flexible enough to support different kinds of gameplay interactions. To generate power, I implemented an alternator that produces electricity and feeds it into a battery. That battery can then be charged or discharged depending on what is currently connected to it.
+                </Paragraph>
+
+                <Paragraph>
+                  A key part of the system was making batteries reusable across different objects. The cruiser, for example, needs its own battery, but portable equipment such as the player’s flash lights also relies on one. Because of that, I structured the system around three simple building blocks: electricity producers, electricity consumers, and batteries that store the energy. Producers and consumers are fairly lightweight, since they mainly contribute a value that increases or decreases the battery load, and that value can also be changed dynamically during gameplay.
+                </Paragraph>
+
+                <CodeBlock code={batteryModule}/>
+
+                <Paragraph>
+                  The battery itself is responsible for tracking all active producers and consumers and periodically updating its current charge based on their combined values. In addition to that, I introduced a voltage value that makes it possible to detect when the system is overloaded. If too many consumers are active at the same time, the voltage drops and connected devices can start to fail. This gave the whole setup a more believable behavior and made electricity feel like an actual gameplay system rather than just a simple on and off switch.
+                </Paragraph>
+
                 <SubsectionTitel>Knocking out Players</SubsectionTitel>
+
+                <Paragraph>
+                  Fail states are an important part of many games because they create actual challenge. In our game, that fail state happens when all player characters have been knocked out and can no longer be revived. I implemented several features around player knockouts, including the knockout event itself, spawning a new mesh that represents the knocked out character and can be picked up by other players, a spectator camera for knocked out players that switches between active teammates so they can still follow what is happening, and a revive mechanic in the cruiser bunk bed that respawns the character.
+                </Paragraph>
+
+                <Paragraph>
+                  I implemented a function and registered it on the player character so a character can be knocked out from anywhere in the codebase. If the character is not already unconscious, the function sets the unconscious boolean to true. The actual knockout logic is then handled through a callback that is triggered when this value changes. This includes disabling the player character, spawning the knocked out body mesh, and switching the player to the spectator camera through the player interaction mode.
+                </Paragraph>
+
+                <CodeBlock code={knockout}/>
+
+                <Paragraph>
+                  As an example, this is the code the cruiser uses to run over player characters. It uses a simple collision shape that knocks out the hit player based on the current velocity of the referenced physics object.
+                </Paragraph>
+
+                <CodeBlock code={knockoutMover}/>
+
+                <Paragraph>
+                  With this logic in place, I was able to drive over the character and knock them out during gameplay. This was useful because it let me properly test the full knockout flow in an actual game situation instead of only triggering it manually through code. It also helped show that the knockout state worked correctly when caused by a moving gameplay object like the cruiser, which made the whole feature feel much more grounded in the game.
+                </Paragraph>
+
+                <VideoBlock src={"/images/projects/frozen-bulgur/DriveOver.mp4"} />
+
+                <Paragraph>
+                  One of the design constraints we have for the game is that a player is never truly dead. As long as there is another player who can still revive them, the body can be rescued. Players can pick up the unconscious body and carry it back to the cruiser to respawn them, or use a medkit to revive them on the spot. I implemented a function which can be used to respawn the player at a specific position, which can also be seen in the code block above. To revive the player in the cruiser, the unconscious body gets attached to the bunk bed and after a duration of 5 seconds the player respawns.
+                </Paragraph>
+
+
+                <VideoBlock src={"/images/projects/frozen-bulgur/Revive.mp4"} />
+
                 <SectionTitle>Implementation of Networking Features</SectionTitle>
                 <SubsectionTitel>Physics Synchronization</SubsectionTitel>
                 <SubsectionTitel>Godot Multiplayer Refactor</SubsectionTitel>
