@@ -1,24 +1,19 @@
 import Image from "next/image";
 import { Metadata } from "next";
-import BlogTitle from "@/components/Blog/BlogTitel";
 import SectionTitle from "@/components/Blog/SectionTitel";
 import ImageBlock from "@/components/Blog/ImageBlock";
 import VideoBlock from "@/components/Blog/VideoBlock";
-import Statistics from "@/components/Blog/Statistics";
-import TagButton from "@/components/Blog/TagButton";
 import Paragraph from "@/components/Blog/Paragraph";
 import BlogLink from "@/components/Blog/BlogLink";
 import BulletList from "@/components/Blog/BulletList";
 import TableOfContents from "@/components/Blog/TableOfContents";
 import Roles from "@/components/Blog/Roles";
-import { getPortfolioProjectByLink } from "@/data/portfolioProjects";
+import ProjectBlogHeader from "@/components/Blog/ProjectBlogHeader";
 
 export const metadata: Metadata = {
   title: "Custom Multiplayer Networking in Godot",
   description: "Custom Multiplayer Networking in Godot",
 };
-
-const tags = getPortfolioProjectByLink("/projects/godot-networking")?.tags ?? [];
 
 const BlogPage = () => {
   return (
@@ -26,27 +21,7 @@ const BlogPage = () => {
       <div className="container">
         <div className="-mx-4 flex flex-wrap justify-center">
           <div className="w-full lg:w-8/12 mb-10 md:mb-50">
-              <BlogTitle>
-                Custom Multiplayer Networking in Godot
-              </BlogTitle>
-
-              <div className="z-20 mb-2 md:mb-6 flex flex-wrap">
-                {tags.map((tag, index) => (
-                  <TagButton key={index} text={tag}/>
-                ))}
-              </div>
-
-              <div className="border-body-color/20  border-b md:border-none mb-2 md:mb-6">
-              <Statistics
-                stat={{
-                  orgaType: "Company",
-                  orgaName: "Chasing Carrots",
-                  game: "Unanounced Titel",
-                  date: "2025",
-                  duration: "4 Month",
-                  teamSize: "10",
-                }}/>
-              </div>
+              <ProjectBlogHeader projectLink="/projects/godot-networking" />
 
               <Roles roles={["Engine Programmer", "Network Programmer"]}></Roles>
 

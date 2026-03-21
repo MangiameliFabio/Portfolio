@@ -15,9 +15,15 @@ const menuData: Menu[] = [
   },
   {
     id: 3,
+    title: "Game Jams",
+    path: "/game-jams",
+    newTab: false,
+  },
+  {
+    id: 4,
     title: "About Me",
     path: "/about",
     newTab: false,
-  }
+  },
 ];
 export default menuData;

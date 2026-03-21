@@ -1,22 +1,17 @@
 import { Metadata } from "next";
-import Statistics from "@/components/Blog/Statistics";
-import TagButton from "@/components/Blog/TagButton";
 import SectionTitle from "@/components/Blog/SectionTitel";
-import BlogTitle from "@/components/Blog/BlogTitel";
 import Paragraph from "@/components/Blog/Paragraph";
 import BulletList from "@/components/Blog/BulletList";
 import ImageBlock from "@/components/Blog/ImageBlock";
 import VideoBlock from "@/components/Blog/VideoBlock";
 import Roles from "@/components/Blog/Roles";
 import TableOfContents from "@/components/Blog/TableOfContents";
-import { getPortfolioProjectByLink } from "@/data/portfolioProjects";
+import ProjectBlogHeader from "@/components/Blog/ProjectBlogHeader";
 
 export const metadata: Metadata = {
   title: "Performance optimizations for Halls of Torment",
   description: "Performance optimizations for Halls of Torment",
 };
-
-const tags = getPortfolioProjectByLink("/projects/halls-of-torment")?.tags ?? [];
 
 const BlogPage = () => {
   return (
@@ -24,28 +19,7 @@ const BlogPage = () => {
       <div className="container">
         <div className="flex flex-wrap justify-center">
           <div className="w-full lg:w-8/12 mb-10 md:mb-50">
-              <BlogTitle>
-                Performance optimizations for Halls of Torment
-              </BlogTitle>
-
-              <div className="z-20 mb-2 md:mb-6 flex flex-wrap">
-                {tags.map((tag, index) => (
-                  <TagButton key={index} text={tag}/>
-                ))}
-              </div>
-
-              {/* Meta */}
-              <div className="border-body-color/20  border-b md:border-none mb-2 md:mb-6">
-              <Statistics
-                stat={{
-                  orgaType: "Company",
-                  orgaName: "Chasing Carrots",
-                  game: "Halls of Torment",
-                  date: "2024",
-                  duration: "2 Month",
-                  teamSize: "10"
-                }}/>
-              </div>
+              <ProjectBlogHeader projectLink="/projects/halls-of-torment" />
 
               <Roles roles={["Game Programmer", "Engine Programmer"]}></Roles>
 

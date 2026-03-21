@@ -1,10 +1,7 @@
 import Image from "next/image";
 import { Metadata } from "next";
-import BlogTitle from "@/components/Blog/BlogTitel";
 import SectionTitle from "@/components/Blog/SectionTitel";
 import VideoBlock from "@/components/Blog/VideoBlock";
-import Statistics from "@/components/Blog/Statistics";
-import TagButton from "@/components/Blog/TagButton";
 import Paragraph from "@/components/Blog/Paragraph";
 import BlogLink from "@/components/Blog/BlogLink";
 import CodeBlock from "@/components/Blog/CodeBlock";
@@ -13,8 +10,8 @@ import { coroutineSnippet, behaviourSnippet, searchSnippet } from "@/code/gdNeig
 import SubsectionTitel from "@/components/Blog/SubsectionTitel";
 import TableOfContents from "@/components/Blog/TableOfContents";
 import Roles from "@/components/Blog/Roles";
+import ProjectBlogHeader from "@/components/Blog/ProjectBlogHeader";
 import PageStyling from "@/components/Common/PageStyling";
-import { getPortfolioProjectByLink } from "@/data/portfolioProjects";
 import { durabilityModule, enginePartModule, fuelTransferModule, tankModule, turboBoost, turboChargerSnippet } from "@/code/gdEngine";
 import { characterTemperature, connectionTemperature, roomTemperature, temperatureSource } from "@/code/gdTemperature";
 import { batteryModule } from "@/code/gdBattery";
@@ -26,34 +23,14 @@ export const metadata: Metadata = {
   description: "Custom Multiplayer Networking in Godot",
 };
 
-const tags = getPortfolioProjectByLink("/projects/coop-exploration")?.tags ?? [];
-
 const BlogPage = () => {
   return (
     <>
       <section className="pt-[50px] md:pb-[100px] lg:pt-[80px]">
         <div className="container">
-          <div className="-mx-4 flex flex-wrap justify-center">
+        <div className="-mx-4 flex flex-wrap justify-center">
             <div className="w-full lg:w-8/12 mb-10 md:mb-50">
-                <BlogTitle>
-                  Custom Multiplayer Networking in Godot
-                </BlogTitle>
-
-                <div className="z-20 mb-2 md:mb-6 flex flex-wrap">
-                  {tags.map((tag, index) => (
-                    <TagButton key={index} text={tag}/>
-                  ))}
-                </div>
-                
-                <Statistics
-                  stat={{
-                    orgaType: "Company",
-                    orgaName: "Chasing Carrots",
-                    game: "Unanounced Titel",
-                    date: "2025",
-                    duration: "1.5 years",
-                    teamSize: "10"
-                  }}/>
+                <ProjectBlogHeader projectLink="/projects/coop-exploration" />
 
                 <Roles roles={["Game Programmer", "Engine Programmer", "Network Programmer"]}></Roles>
 

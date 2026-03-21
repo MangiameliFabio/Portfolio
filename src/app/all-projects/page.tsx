@@ -1,5 +1,5 @@
 import PageStyling from "@/components/Common/PageStyling";
-import AllProjectsContent from "@/components/Portfolios/AllProjects";
+import AllProjectsContent from "@/components/AllProjects";
 
 import { Metadata } from "next";
 

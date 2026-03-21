@@ -12,19 +12,15 @@ export type Blog = {
   tags: string[];
   keyPoints: string[];
   link: string;
-  orgaType: String;
-  orgaName: String;
+  orgaType: string;
+  orgaName: string;
   game: string;
   date: string;
   duration: string;
-  teamSize: String;
+  teamSize: string;
 };
 
-export type Stat = {
-  orgaType: String;
-  orgaName: String;
-  game: String;
-  date: String;
-  duration: String;
-  teamSize: String;
-} 
+export type Stat = Pick<
+  Blog,
+  "orgaType" | "orgaName" | "game" | "date" | "duration" | "teamSize"
+>;

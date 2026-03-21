@@ -1,6 +1,7 @@
 import ScrollUp from "@/components/Common/ScrollUp";
 import Engine from "@/components/Portfolios/Engine";
 import Gameplay from "@/components/Portfolios/Gameplay";
+import Ghostship from "@/components/Portfolios/Ghostship";
 import Welcome from "@/components/Portfolios/Welcome";
 
 import { Metadata } from "next";
@@ -9,17 +10,6 @@ export const metadata: Metadata = {
   title: "Portfolio Fabio Mangiameli",
   description: "",
 };
-
-// export default function Home() {
-//   return (
-//     <>
-//       <ScrollUp />
-//       <Hero />
-//     </>
-//   );
-// }
-
-// src/app/page.tsx
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 
@@ -67,6 +57,15 @@ export default async function HomePage() {
     return (
       <>
         <Gameplay/>
+        <ScrollUp />
+      </>
+    );
+  }
+
+  if (subdomain === 'ghostship') {
+    return (
+      <>
+        <Ghostship/>
         <ScrollUp />
       </>
     );

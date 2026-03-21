@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="container">
           <div className="flex items-center justify-center text-center flex-col">
             <p className="max-w-[500px]">
-              Wow! glad you reached the bottom of my Website. You must have really liked it 😎<br/>
+              Wow! Glad you reached the bottom of my Website. You must have really liked it 😎<br/>
               Make sure to check out my socials and my{" "}
               <Link href="/all-projects" className="text-primary hover:underline">
                 other projects
