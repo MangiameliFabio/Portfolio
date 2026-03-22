@@ -69,7 +69,7 @@ const Gameplay = () => {
                   "Game Programming for an unanounced Co-op Exploration Game",
                 paragraph:
                   "During the development of Halls of Torment, Chasing Carrots began prototyping a new title and I joined during the early stages, taking on a wide range of tasks. My main focus was building and iterating on core gameplay and technical systems while helping shape a stable multiplayer foundation for the project. The work required close collaboration, rapid prototyping, and solving practical engineering challenges to support the game’s direction.",
-                src: "/images/projects/hypothermia/hypothermiaShowCasePart2.mp4",
+                src: "/images/projects/hypothermia/HypothermiaShowCasePart2.mp4",
                 tags: ["C++", "Godot", "GDScript", "Multiplayer", "Codecks"],
                 keyPoints: [
                   "Refactored Godot’s multiplayer networking with a custom C++ system supporting ENet and Epic Online Services. Integrated the architecture into the codebase and fixed a critical multi-mesh limitation in the EOS Godot extension.",

@@ -75,7 +75,7 @@ const BlogPage = () => {
 
               <VideoBlock
                 src={
-                  "/images/projects/hypothermia/hypothermiaShowCasePart1.mp4"
+                  "/images/projects/hypothermia/HypothermiaShowCasePart1.mp4"
                 }
               />
 
