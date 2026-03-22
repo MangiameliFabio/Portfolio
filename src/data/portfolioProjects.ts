@@ -6,7 +6,7 @@ export const portfolioProjects: Blog[] = [
     title: "Hypothermia - Game and Network Programming",
     paragraph:
       "During the development of Halls of Torment, Chasing Carrots began prototyping a new title and I joined during the early stages, taking on a wide range of tasks. My main focus was building and iterating on core gameplay and technical systems while helping shape a stable multiplayer foundation for the project. The work required close collaboration, rapid prototyping, and solving practical engineering challenges to support the game's direction.",
-    src: "/images/projects/frozen-bulgur/FrozenBulgurShowCasePart2.mp4",
+    src: "/images/projects/hypothermia/hypothermiaShowCasePart2.mp4",
     tags: ["C++", "Godot", "GDScript", "Multiplayer", "Codecks", "Git"],
     keyPoints: [
       "Refactored Godot's multiplayer networking with a custom C++ system supporting ENet and Epic Online Services. Integrated the architecture into the codebase and fixed a critical multi-mesh limitation in the EOS Godot extension.",
@@ -14,7 +14,7 @@ export const portfolioProjects: Blog[] = [
       "Implemented a player downed state and revive mechanic to enhance cooperative gameplay and failure recovery.",
       "Focused on game systems such as the room temperature system, electricity system and cruiser engine system",
     ],
-    link: "/projects/coop-exploration",
+    link: "/projects/hypothermia",
     orgaType: "Company",
     orgaName: "Chasing Carrots",
     game: "Hypothermia",

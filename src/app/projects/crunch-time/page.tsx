@@ -7,6 +7,7 @@ import CodeBlock from "@/components/Blog/CodeBlock";
 import TableOfContents from "@/components/Blog/TableOfContents";
 import Roles from "@/components/Blog/Roles";
 import ImageBlock from "@/components/Blog/ImageBlock";
+import GameEmbed from "@/components/Blog/GameEmbed";
 import ProjectBlogHeader from "@/components/Blog/ProjectBlogHeader";
 import PageStyling from "@/components/Common/PageStyling";
 import {
@@ -71,6 +72,12 @@ const BlogPage = () => {
                 title="Watch the walkthrough: "
                 link="https://drive.google.com/file/d/17bCTvuVgCx2NhOgqbx8xps5Kz3wg85nf/view?usp=drive_link"
                 linkName="Video walkthrough"
+              />
+
+              <GameEmbed
+                src="/webbuilds/CrunchTime/index.html"
+                title="Crunch Time web build"
+                description="This local Godot web build is embedded directly on the page. If audio or focus feels odd, click into the game first or switch to fullscreen."
               />
 
               <ImageBlock
