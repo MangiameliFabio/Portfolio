@@ -6,7 +6,7 @@ type BlogLinkProps = {
 
 const BlogLink = ({ title, link, linkName }: BlogLinkProps) => (
   <>
-    <div className="text-slate-400 mb-2 text-base leading-relaxed! sm:text-md md:text-lg">
+    <div className="text-slate-400 mb-2 text-base leading-relaxed! sm:text-base md:text-lg">
         {title && (
             <span>{title}</span>
         )}

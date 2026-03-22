@@ -14,6 +14,7 @@ import {
   enchantedMainLoopSnippet,
   enchantedPathfindingSnippet,
 } from "@/code/cppEnchantedDefense";
+import Links from "@/components/Blog/Links";
 
 export const metadata: Metadata = {
   title: "Enchanted Defense",
@@ -50,21 +51,23 @@ const BlogPage = () => {
                 teach you when you own the underlying framework as well.
               </Paragraph>
 
-              <BlogLink
-                title="Check out the Repository: "
-                link="https://github.com/MangiameliFabio/Enchanted-Defense"
-                linkName="Source code"
-              />
-              <BlogLink
-                title="Play the latest build: "
-                link="https://github.com/MangiameliFabio/Enchanted-Defense/releases/tag/Build"
-                linkName="GitHub release"
-              />
-              <BlogLink
-                title="Watch the walkthrough: "
-                link="https://drive.google.com/file/d/1DcSH0mLjfLbaEGVx8fJEFSZSX3N4aQHp/view?usp=drive_link"
-                linkName="Video walkthrough"
-              />
+              <Links>
+                <BlogLink
+                  title="Check out the Repository: "
+                  link="https://github.com/MangiameliFabio/Enchanted-Defense"
+                  linkName="Source code"
+                />
+                <BlogLink
+                  title="Play the latest build: "
+                  link="https://github.com/MangiameliFabio/Enchanted-Defense/releases/tag/Build"
+                  linkName="GitHub release"
+                />
+                <BlogLink
+                  title="Watch the walkthrough: "
+                  link="https://drive.google.com/file/d/1DcSH0mLjfLbaEGVx8fJEFSZSX3N4aQHp/view?usp=drive_link"
+                  linkName="Video walkthrough"
+                />
+              </Links>
 
               <ImageBlock
                 src="/images/projects/enchanted-defense/Enchated_Defense.gif"

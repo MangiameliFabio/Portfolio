@@ -90,7 +90,7 @@ layer(base);
 @media (min-width: 1650px) {
   .table-of-contents {
     position: fixed;
-    top: 0;
+    top: 70px;
     left: 20px;
   }
 }

@@ -1,5 +1,12 @@
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
+import cpp from "react-syntax-highlighter/dist/esm/languages/prism/cpp";
+import gdscript from "react-syntax-highlighter/dist/esm/languages/prism/gdscript";
+import javascript from "react-syntax-highlighter/dist/esm/languages/prism/javascript";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+
+SyntaxHighlighter.registerLanguage("cpp", cpp);
+SyntaxHighlighter.registerLanguage("gdscript", gdscript);
+SyntaxHighlighter.registerLanguage("javascript", javascript);
 
 type CodeBlockProps = {
   code: string;
@@ -7,7 +14,7 @@ type CodeBlockProps = {
   title?: string;
 };
 
-const CodeBlock = ({ code, language = "javascript", title }: CodeBlockProps) => (
+const CodeBlock = ({ code, language = "gdscript", title }: CodeBlockProps) => (
   <>
     {title && (
       <p className="text-slate-400 mb-2 text-base leading-relaxed! sm:text-md md:text-lg">

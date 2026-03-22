@@ -11,13 +11,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
     paragraph,
     tags,
     keyPoints,
-    link,
-    orgaType,
-    orgaName,
-    game,
-    date,
-    duration,
-    teamSize,
+    link
   } = blog;
   const isVideoPreview = /\.(mp4|webm|ogg)$/i.test(src);
 
@@ -28,7 +22,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
       loop
       muted
       playsInline
-      className="h-auto w-full max-w-full rounded-xl object-contain"
+      className="h-auto rounded-xl object-contain"
     />
   ) : (
     <Image
@@ -36,35 +30,40 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
       alt={title}
       width={1200}
       height={675}
-      className="h-auto w-full max-w-full rounded-xl object-contain"
+      className="h-auto rounded-xl object-contain"
     />
   );
 
   return (
     <>
       <div className="group shadow-one hover:shadow-two bg-dark relative overflow-hidden rounded-3xl border border-white/10 px-4 duration-300 md:px-6">
-        <h3 className="border-body-color/20 hover:text-primary border-b py-3 text-xl leading-tight font-bold text-black sm:text-2xl sm:leading-tight md:py-6 md:text-3xl md:leading-tight dark:text-white">
-          <Link href={link}>{title}</Link>
+        <h3 className="border-body-color/20 border-b py-3 md:pt-6 md:pb-3 text-xl leading-tight font-bold text-black sm:text-2xl sm:leading-tight md:text-3xl md:leading-tight dark:text-white">
+          <Link
+            href={link}
+            className="transition-colors hover:text-primary dark:hover:text-primary"
+          >
+            {title}
+          </Link>
         </h3>
-        <div className="border-body-color/20 flex justify-items-center border-b pb-4 md:pb-6">
-          <div className="2xl:mr-9">
-            <div className="z-20 flex flex-wrap pt-3 md:pt-6">
-              {tags.map((tag, index) => (
-                <TagButton key={index} text={tag} />
-              ))}
-            </div>
+        <div className="flex flex-wrap mt-3 md:mt-4">
+          {tags.map((tag, index) => (
+            <TagButton key={index} text={tag} />
+          ))}
+        </div>
+        <div className="border-body-color/20 flex flex-col border-b pb-4 md:flex-row md:items-center md:gap-8 md:pb-6">
+          <div className="w-full">
             <ul className="mt-1 list-outside list-disc space-y-2 pl-6 text-base leading-relaxed! text-black sm:text-lg md:text-xl dark:text-white">
               {keyPoints.map((keyPoint, index) => (
                 <li key={index}>{keyPoint}</li>
               ))}
             </ul>
-            <div className="mt-5 flex items-center justify-center 2xl:hidden">
-              {preview}
-            </div>
           </div>
-          <div className="ml-auto hidden max-w-[50%] items-center justify-center 2xl:flex">
+          <div className="mt-5 flex w-full items-center justify-center md:mt-0 hidden 2xl:block">
             {preview}
           </div>
+        </div>
+        <div className="mt-5 flex w-full items-center justify-center md:mt-0 block 2xl:hidden">
+          {preview}
         </div>
         <div className="pt-3 pb-3 md:pt-6 md:pb-4 lg:pb-6">
           <p className="text-base leading-relaxed! text-black sm:text-lg md:text-xl dark:text-white">

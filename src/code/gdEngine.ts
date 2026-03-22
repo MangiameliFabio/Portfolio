@@ -63,7 +63,7 @@ func _update_boost_charge(value: float):
 export const turboBoost = `if _engine_running.value:
 		var new_max_rpm = MaxRPM * ((_boost_charge.value + _injection_flow_rate.value) / 2)
 		if _vehicle_speed.value > ClutchEmulationSpeed:
-			_targetRPM = lerpf(IdleRPM, new_max_rpm, _vehicle_speed.value / 40.0)
+			_targetRPM = lerpf(IdleRPM, new_max_rpm, _vehicle_speed.value / SPEED_TO_RPM_FACTOR)
 		else:
 			_targetRPM = lerpf(IdleRPM, new_max_rpm, minf(1.0, absf(_throttle.value) + absf(_steering.value)))`
 
